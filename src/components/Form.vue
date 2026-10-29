@@ -16,6 +16,10 @@ const currentMonth = computed(() => {
 
 const data = dataGuruTugas()
 
+function onSubmit() {
+  console.log(data.detailData)
+}
+
 // State reaktif untuk menampung data pilihan
 // const selectedOption = ref('')
 
@@ -51,7 +55,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 </script>
 
 <template>
-  <section class="mx-auto min-h-screen max-w-106.5 bg-[#eef1f5] pb-15 pt-10">
+  <section class="mx-auto min-h-screen max-w-106.5 base-100 pb-15 pt-10">
     <div class="px-2.5 pb-5 pt-3.25">
       <!-- <form @submit.prevent="simpanData" class="space-y-4">
         <div>
@@ -92,7 +96,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
         
       </div> -->
       <!-- <h1 class="text-[16px] font-normal leading-tight text-[#244638]">Form Laporan GT</h1> -->
-      <form class="mt-3 space-y-2.5">
+      <form class="mt-3 space-y-2.5" @submit.prevent="onSubmit">
         <div class="card p-2.5">
           <h2 class="mt-1 mb-3 text-15px] font-extrabold uppercase tracking-wide text-[#28604c]">
             Buat Laporan Baru
@@ -138,7 +142,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           <h2 class="section-title">Menjadi Wali Kelas</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
-            <div class="flex gap-1">
+            <div class="flex gap-1 flex-col">
               <label
                 ><select class="select select-sm field-select bg-white w-20">
                   <option>Kelas 1</option>
@@ -156,9 +160,9 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           <h2 class="section-title">Menjadi Guru Fun</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
-            <div class="flex gap-1">
-              <label
-                ><select class="select select-sm field-select bg-white w-20">
+            <div class="flex gap-1 flex-col">
+              <fieldset class="fieldset">
+                <select class="select select-sm field-select bg-white w-20">
                   <option>Kelas 1</option>
                   <option>Kelas 2</option>
                   <option>Kelas 3</option>
@@ -166,7 +170,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
                   <option>Kelas 5</option>
                   <option>Kelas 6</option>
                 </select>
-              </label>
+              </fieldset>
             </div>
           </div>
         </div>
@@ -180,77 +184,6 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
               <option>Laki-Laki & Perempuan</option>
             </select></label
           >
-          <div class="mt-2.75">
-            <h3 class="field-label my-2">Jumlah Murid</h3>
-            <div class="flex gap-1">
-              <label>
-                <span class="field-label">Kelas 1</span
-                ><select class="select select-sm field-select bg-white w-20">
-                  <option>1 orang</option>
-                  <option>2 orang</option>
-                  <option>3 orang</option>
-                  <option>4 orang</option>
-                  <option>5 orang</option>
-                  <option>6 orang</option>
-                </select>
-              </label>
-              <label>
-                <span class="field-label">Kelas 2</span
-                ><select class="select select-sm field-select bg-white w-20">
-                  <option>1 orang</option>
-                  <option>2 orang</option>
-                  <option>3 orang</option>
-                  <option>4 orang</option>
-                  <option>5 orang</option>
-                  <option>6 orang</option>
-                </select>
-              </label>
-              <label>
-                <span class="field-label">Kelas 3</span
-                ><select class="select select-sm field-select bg-white w-20">
-                  <option>1 orang</option>
-                  <option>2 orang</option>
-                  <option>3 orang</option>
-                  <option>4 orang</option>
-                  <option>5 orang</option>
-                  <option>6 orang</option>
-                </select>
-              </label>
-              <label>
-                <span class="field-label">Kelas 4</span
-                ><select class="select select-sm field-select bg-white w-20">
-                  <option>1 orang</option>
-                  <option>2 orang</option>
-                  <option>3 orang</option>
-                  <option>4 orang</option>
-                  <option>5 orang</option>
-                  <option>6 orang</option>
-                </select>
-              </label>
-              <label>
-                <span class="field-label">Kelas 5</span
-                ><select class="select select-sm field-select bg-white w-20">
-                  <option>1 orang</option>
-                  <option>2 orang</option>
-                  <option>3 orang</option>
-                  <option>4 orang</option>
-                  <option>5 orang</option>
-                  <option>6 orang</option>
-                </select>
-              </label>
-              <label>
-                <span class="field-label">Kelas 6</span
-                ><select class="select select-sm field-select bg-white w-20">
-                  <option>1 orang</option>
-                  <option>2 orang</option>
-                  <option>3 orang</option>
-                  <option>4 orang</option>
-                  <option>5 orang</option>
-                  <option>6 orang</option>
-                </select>
-              </label>
-            </div>
-          </div>
         </div>
         <div class="card p-2.5">
           <h2 class="section-title">Kehadiran &amp; Kegiatan</h2>
@@ -367,7 +300,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 
           <button
             type="submit"
-            class="mt-4 w-full rounded-lg bg-[#174533] py-3 text-[11px] font-bold text-white"
+            class="mt-4 w-full rounded-lg bg-primary py-3 text-[11px] font-bold text-primary-content"
           >
             Simpan Laporan
           </button>

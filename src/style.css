@@ -1,7 +1,15 @@
 @import 'tailwindcss';
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: 'retro';
+  default: true;
+
+  --color-primary: #123f31;
+  --color-primary-content: whitesmoke;
+}
 
 @theme {
+  --color-dasar: #000;
   --color-ugt-forest: #173f31;
   --color-ugt-deep: #123d30;
   --color-ugt-yellow: #f2d45f;

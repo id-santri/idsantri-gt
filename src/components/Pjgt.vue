@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue'
+import { dataGuruTugas } from '../stores/data'
+
+const data = dataGuruTugas()
 
 const idGt = ref('1448001')
 const nama = ref('KH. Karom')
@@ -17,14 +20,15 @@ const tahunAjaran = ref('1448-1449 H')
         >
           <!-- ID Card Relatif -->
           <div
-            class="w-full aspect-[1/1.58] bg-white rounded-2xl shadow-xl border border-gray-200 flex flex-col items-center justify-between p-6 text-center"
+            class="w-full aspect-[1/1.58] bg-white rounded-2xl shadow-xl border border-gray-200 flex flex-col items-center justify-between p-6"
           >
-            <!-- Konten Atas: Header / Logo -->
             <div class="text-sm font-bold tracking-wider text-green-900 uppercase">
               Penanggung Jawab GT
             </div>
-            <!-- Konten Bawah: ID & Barcode -->
-            <div class="w-full bg-gray-50 py-2 rounded-lg border border-dashed border-gray-300">
+
+            <div
+              class="w-full text-center bg-gray-50 py-2 rounded-lg border border-dashed border-gray-300"
+            >
               <span class="text-xs font-mono text-gray-600 tracking-widest">ID: {{ idGt }}</span>
             </div>
 
@@ -36,79 +40,100 @@ const tahunAjaran = ref('1448-1449 H')
                 <!-- Foto di sini -->
                 <img src="../assets/nzl.jpg" alt="Foto Profil" class="w-full h-full object-cover" />
               </div>
-              <h2 class="text-lg font-bold text-gray-800 truncate w-full uppercase">{{ nama }}</h2>
+              <h2 class="text-lg text-center font-bold text-gray-800 truncate w-full uppercase">
+                {{ nama }}
+              </h2>
               <p class="text-sm text-gray-500 font-medium">Pengasuh PP. Darul Ulum</p>
             </div>
             <div
               class="flex-1 w-full space-y-3 text-slate-700 text-sm sm:text-base justify-center items-center"
             >
-              <!-- Baris Nama -->
-              <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                <span class="text-gray-400 font-semibold text-xs tracking-wider uppercase"
-                  >Nama</span
-                >
-                <span class="text-emerald-700 font-semibold">:</span>
-                <span class="text-slate-800 text-lg font-medium">{{ nama }}</span>
-              </div>
-
-              <!-- Baris Umur -->
-              <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                <span class="text-gray-400 font-semibold text-xs tracking-wider uppercase"
-                  >Umur</span
-                >
-                <span class="text-emerald-700 font-semibold">:</span>
-                <span class="text-slate-800 text-lg font-medium">{{ umur }}</span>
-              </div>
-
-              <!-- Baris Alamat -->
-              <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                <span class="text-gray-400 font-semibold text-xs tracking-wider uppercase"
-                  >Alamat</span
-                >
-                <span class="text-emerald-700 font-semibold">:</span>
-                <span class="text-slate-800 text-base leading-relaxed">{{ alamat }}</span>
-              </div>
-
-              <!-- Baris Tahun Ajaran -->
-              <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                <span
-                  class="text-gray-400 font-semibold text-xs tracking-wider uppercase leading-none"
-                  >Tahun Ajaran</span
-                >
-                <span class="text-emerald-700 font-semibold">:</span>
-                <span class="text-slate-800 text-lg font-medium">{{ tahunAjaran }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="card p-2.5 min-h-screen pt-20 relative bg-white rounded-3xl w-full max-w-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex flex-col sm:flex-row items-center sm:items-start gap-6 font-san"
-        >
-          <!-- ID Card Relatif -->
-          <div
-            class="w-full aspect-[1.58/1] bg-white rounded-2xl shadow-xl border border-gray-200 flex items-center p-6 gap-6"
-          >
-            <!-- Kiri: Foto -->
-            <div
-              class="w-1/3 aspect-square rounded-xl bg-gray-300 border-2 border-indigo-500 flex-shrink-0"
-            >
-              <!-- Foto di sini -->
-            </div>
-
-            <!-- Kanan: Detail Informasi -->
-            <div class="flex flex-col justify-between h-full flex-1 py-2">
-              <div>
-                <div class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">
-                  Tech Conference
+              <!-- Detail Teks -->
+              <div v-for="guru in data.detailData" :key="guru.id" class="flex-1 min-w-0">
+                <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
+                  <p class="text-[14px] opacity-60 mt-1 font-mono">Id</p>
+                  <p class="text-[14px] opacity-60 mt-1 font-mono">:</p>
+                  <p class="text-[14px] opacity-60 mt-1 font-mono">{{ guru.id }}</p>
                 </div>
-                <h2 class="text-xl font-black text-gray-800 leading-tight">Sarah Connor</h2>
-                <p class="text-sm text-gray-500">Keynote Speaker</p>
-              </div>
+                <div
+                  class="grid grid-cols-[80px_12px_1fr] items-baseline font-medium tracking-wide"
+                >
+                  <p class="text-[14px] opacity-60 mt-1 font-mono">Nama</p>
+                  <p class="text-[14px] opacity-60 mt-1 font-mono">:</p>
+                  <h3 class="text-[14px] font-bold opacity-100 truncate leading-tight font-mono">
+                    {{ guru.nama }}
+                  </h3>
+                </div>
+                <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    Umur
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    :
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    {{ guru.umur }}
+                  </p>
+                </div>
 
-              <div class="flex justify-between items-end border-t pt-2 border-gray-100">
-                <span class="text-[10px] font-mono text-gray-400">ACCESS: VIP</span>
-                <div class="w-16 h-6 bg-gray-800 rounded-sm"></div>
-                <!-- Ilustrasi Barcode -->
+                <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    Tahun Ajaran
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    :
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    {{ guru.tahunAjaran }}
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    Tempat Tugas
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    :
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    {{ guru.tempatTugas }}
+                  </p>
+                </div>
+                <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    Alamat
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    :
+                  </p>
+                  <p
+                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
+                  >
+                    {{ guru.alamat }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

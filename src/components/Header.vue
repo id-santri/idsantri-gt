@@ -3,7 +3,7 @@
 <template>
   <section class="flex items-center justify-center dashboard-shell relative overflow-hidden">
     <header
-      class="flex h-11.25 fixed max-w-109.5 top-0 z-20 items-center justify-between bg-[#123f31] px-5.5 py-7 text-white shadow-sm left-1/2 -translate-x-1/2 w-full"
+      class="flex h-11.25 fixed max-w-109.5 top-0 z-20 items-center justify-between bg-primary text-primary-content px-5.5 py-7 shadow-sm left-1/2 -translate-x-1/2 w-full"
     >
       <div class="flex items-center gap-2">
         <RouterLink to="/" class="flex items-center gap-2">
@@ -15,7 +15,7 @@
 
         <div class="leading-[1.05] gap-1 flex flex-col text-left">
           <div class="text-[12px] font-extrabold tracking-wide">Aplikasi</div>
-          <div class="mt-0.75 text-[7px] uppercase tracking-[1px] text-ugt-yellow">
+          <div class="mt-0.75 text-[7px] uppercase tracking-[1px] text-warning-content">
             Laporan Guru Tugas
           </div>
         </div>
