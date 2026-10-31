@@ -22,7 +22,8 @@
       </div>
 
       <button class="mt-2.25 rounded-md bg-ugt-yellow px-2 py-1.75 text-[#254536]">
-        <p class="text-[12px] font-bold">LOG OUT</p>
+        <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
+        <!-- <p class="text-[12px] font-bold">LOG OUT</p> -->
       </button>
     </header>
   </section>
