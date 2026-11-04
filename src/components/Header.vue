@@ -1,34 +1,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import ThemeToggle from './ThemeToggle.vue'
+// import ThemeToggle from './ThemeToggle.vue'
 import { useThemeStore } from '../stores/data'
 
 const themeStore = useThemeStore()
 
-// Daftarkan nama tema sesuai yang ditulis di berkas CSS
-const theme = ref('mylight')
-
-const toggleTheme = () => {
-  theme.value = theme.value === 'mylight' ? 'mydark' : 'mylight'
-  // Terapkan atribut ke elemen root html
-  document.documentElement.setAttribute('data-theme', theme.value)
-  localStorage.setItem('user-theme', theme.value)
-}
-
 onMounted(() => {
-  // Ambil tema yang disimpan sebelumnya atau deteksi preferensi sistem pengguna
-  const savedTheme = localStorage.getItem('user-theme')
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-  if (savedTheme) {
-    theme.value = savedTheme
-  } else if (systemPrefersDark) {
-    theme.value = 'mydark'
-  } else {
-    theme.value = 'mylight'
-  }
-
-  document.documentElement.setAttribute('data-theme', theme.value)
+  // Jalankan inisialisasi tema saat komponen dimuat agar warna langsung diterapkan
+  themeStore.initTheme()
 })
 </script>
 
@@ -58,8 +37,8 @@ onMounted(() => {
           <!-- Checkbox tersembunyi yang mendengarkan state Pinia -->
           <input
             type="checkbox"
-            :checked="themeStore.currentTheme === 'dark'"
-            @change="toggleTheme"
+            :checked="themeStore.currentTheme === 'mydark'"
+            @change="themeStore.toggleTheme"
           />
 
           <!-- Ikon Sun / Matahari (Muncul saat Light mode aktif) -->

@@ -41,7 +41,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main class="flex items-center justify-center bg-[#eef1f5] text-ugt-ink">
+  <main class="flex items-center justify-center bg-base-100 text-ugt-ink">
     <section
       class="dashboard-shell relative mx-auto min-h-screen max-w-109.5 overflow-hidden w-full"
     >
@@ -83,12 +83,12 @@ onUnmounted(() => {
           <!-- Tombol Dropdown -->
           <button
             @click="isOpen = !isOpen"
-            class="inline-flex justify-between items-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-[15px] shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            class="inline-flex justify-between items-center w-full px-4 py-2 text-sm font-medium text-base-content bg-base-100 border border-gray-300 rounded-[15px] shadow-sm hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
             {{ selectedOption || 'Tahun Ajaran' }}
             <!-- Icon Panah (Chevron) -->
             <svg
-              class="w-5 h-5 ml-2 -mr-1 text-gray-400"
+              class="w-5 h-5 ml-2 -mr-1"
               xmlns="http://w3.org"
               viewBox="0 0 20 20"
               fill="currentColor"

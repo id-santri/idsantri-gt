@@ -49,7 +49,7 @@ export const useThemeStore = defineStore('theme', () => {
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme) return savedTheme
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'mydark' : 'mylight'
   }
 
   const currentTheme = ref(getInitialTheme())
@@ -61,7 +61,7 @@ export const useThemeStore = defineStore('theme', () => {
 
   // Fungsi untuk mengganti tema (Toggle)
   const toggleTheme = () => {
-    currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
+    currentTheme.value = currentTheme.value === 'mylight' ? 'mydark' : 'mylight'
     document.documentElement.setAttribute('data-theme', currentTheme.value)
     localStorage.setItem('theme', currentTheme.value)
   }
