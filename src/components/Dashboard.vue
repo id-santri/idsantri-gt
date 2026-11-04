@@ -121,35 +121,35 @@ onUnmounted(() => {
       </div>
 
       <div
-        class="dashboard-menu absolute inset-x-0 bottom-10 z-10 rounded-t-[40px] bg-white px-5 pt-14"
+        class="dashboard-menu absolute inset-x-0 bottom-10 z-10 rounded-t-[40px] bg-primary-content px-5 pt-14"
       >
         <div class="grid grid-cols-3 gap-1">
           <RouterLink to="/form" class="flex flex-col items-center text-center">
             <span
-              class="mb-5 h-17.5 w-17.5 rounded-full bg-[#1d4032] flex justify-center items-center text-center"
+              class="mb-5 h-17.5 w-17.5 rounded-full bg-primary flex justify-center items-center text-center"
             >
-              <font-awesome-icon icon="clipboard-list" class="text-xl text-ugt-yellow" />
+              <font-awesome-icon icon="clipboard-list" class="text-xl text-accent-content" />
             </span>
 
-            <span class="whitespace-nowrap text-[11px] text-[#193a2d]">Form Laporan GT</span>
+            <span class="whitespace-nowrap text-[11px] text-base-content">Form Laporan GT</span>
           </RouterLink>
           <RouterLink to="/laporan" class="flex flex-col items-center text-center">
             <span
-              class="mb-5 h-17.5 w-17.5 rounded-full bg-[#1d4032] flex justify-center items-center text-center"
+              class="mb-5 h-17.5 w-17.5 rounded-full bg-primary flex justify-center items-center text-center"
             >
-              <font-awesome-icon icon="chart-line" class="text-xl text-ugt-yellow" />
+              <font-awesome-icon icon="chart-line" class="text-xl text-accent-content" />
             </span>
 
-            <span class="whitespace-nowrap text-[11px] text-[#193a2d]">Laporan GT</span>
+            <span class="whitespace-nowrap text-[11px] text-base-content">Laporan GT</span>
           </RouterLink>
           <RouterLink to="/surat" class="flex flex-col items-center text-center">
             <span
-              class="mb-5 h-17.5 w-17.5 rounded-full bg-[#1d4032] flex justify-center items-center text-center"
+              class="mb-5 h-17.5 w-17.5 rounded-full bg-primary flex justify-center items-center text-center"
             >
-              <font-awesome-icon icon="briefcase" class="text-xl text-ugt-yellow" />
+              <font-awesome-icon icon="briefcase" class="text-xl text-accent-content" />
             </span>
 
-            <span class="whitespace-nowrap text-[11px] text-[#193a2d]">Surat Tugas GT</span>
+            <span class="whitespace-nowrap text-[11px] text-base-content">Surat Tugas GT</span>
           </RouterLink>
         </div>
       </div>

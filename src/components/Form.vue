@@ -56,7 +56,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 
 <template>
   <section class="mx-auto min-h-screen max-w-106.5 base-100 pb-15 pt-10">
-    <div class="px-2.5 pb-5 pt-3.25">
+    <div class="px-2.5 pb-5 pt-3.25 w-full">
       <!-- <form @submit.prevent="simpanData" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-gray-600 mb-1">Judul Laporan</label>
@@ -97,16 +97,14 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
       </div> -->
       <!-- <h1 class="text-[16px] font-normal leading-tight text-[#244638]">Form Laporan GT</h1> -->
       <form class="mt-3 space-y-2.5" @submit.prevent="onSubmit">
-        <div class="card p-2.5">
-          <h2 class="mt-1 mb-3 text-15px] font-extrabold uppercase tracking-wide text-[#28604c]">
+        <div class="card p-2.5 bg-base-200">
+          <h2 class="mt-1 mb-3 text-15px] font-extrabold uppercase tracking-wide text-primary">
             Buat Laporan Baru
           </h2>
           <div class="flex items-start justify-between gap-2">
             <div>
-              <h2 class="section-title mb-3 text-blue-600 md:text-green-600">
-                Form Laporan Guru Tugas
-              </h2>
-              <p class="max-w-46.25 text-[10px] leading-[1.4] text-[#7a8580]">
+              <h2 class="section-title mb-3 text-primary">Form Laporan Guru Tugas</h2>
+              <p class="max-w-46.25 text-[10px] leading-[1.4] text-base-content">
                 Silakan isi form laporan guru tugas dengan lengkap dan benar.
               </p>
             </div>
@@ -114,7 +112,13 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           <div v-for="guru in data.detailData" :key="guru.id" class="mt-2.75 space-y-2.5">
             <label
               ><span class="field-label my-2">Laporan Bulan</span>
-              <input id="current-month" type="month" :value="currentMonth" readonly class="field" />
+              <input
+                id="current-month"
+                type="month"
+                :value="currentMonth"
+                readonly
+                class="field bg-base-100"
+              />
               <!-- <select class="select select-sm field-select bg-white w-20">
                 <option>September</option>
                 <option>Oktober</option>
@@ -122,29 +126,29 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             </label>
             <label
               ><span class="field-label my-4">Nama GT</span
-              ><input v-model="guru.nama" type="text" class="field"
+              ><input v-model="guru.nama" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Nama PJGT</span
-              ><input v-model="guru.namaPjgt" type="text" class="field"
+              ><input v-model="guru.namaPjgt" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Nama Madrasah/Ponpes</span
-              ><input v-model="guru.tempatTugas" type="text" class="field"
+              ><input v-model="guru.tempatTugas" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Alamat</span
-              ><input v-model="guru.alamat" type="text" class="field"
+              ><input v-model="guru.alamat" type="text" class="field bg-base-100"
             /></label>
           </div>
         </div>
-        <div class="card p-2.5">
-          <h2 class="section-title">Menjadi Wali Kelas</h2>
+        <div class="card p-2.5 bg-base-200">
+          <h2 class="section-title text-primary">Menjadi Wali Kelas</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
             <div class="flex gap-1 flex-col">
               <label
-                ><select class="select select-sm field-select bg-white w-20">
+                ><select class="select select-sm field-select text-base-content bg-base-100 w-20">
                   <option>Kelas 1</option>
                   <option>Kelas 2</option>
                   <option>Kelas 3</option>
@@ -156,13 +160,13 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             </div>
           </div>
         </div>
-        <div class="card p-2.5">
-          <h2 class="section-title">Menjadi Guru Fun</h2>
+        <div class="card p-2.5 bg-base-200">
+          <h2 class="section-title text-primary">Menjadi Guru Fun</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
             <div class="flex gap-1 flex-col">
               <fieldset class="fieldset">
-                <select class="select select-sm field-select bg-white w-20">
+                <select class="select select-sm field-select bg-base-100 w-20">
                   <option>Kelas 1</option>
                   <option>Kelas 2</option>
                   <option>Kelas 3</option>
@@ -174,23 +178,23 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             </div>
           </div>
         </div>
-        <div class="card p-2.5">
-          <h2 class="section-title">Data Murid</h2>
+        <div class="card p-2.5 bg-base-200">
+          <h2 class="section-title text-primary">Data Murid</h2>
           <label class="block"
             ><span class="field-label my-2">Jenis Kelamin Murid</span
-            ><select class="select select-sm field-select bg-white w-20">
+            ><select class="select select-sm field-select bg-base-100 w-20">
               <option>Laki-laki</option>
               <option>Perempuan</option>
               <option>Laki-Laki & Perempuan</option>
             </select></label
           >
         </div>
-        <div class="card p-2.5">
-          <h2 class="section-title">Kehadiran &amp; Kegiatan</h2>
+        <div class="card p-2.5 bg-base-200">
+          <h2 class="section-title text-primary">Kehadiran &amp; Kegiatan</h2>
           <div class="space-y-2.5">
             <label
               ><span class="field-label">Sakit</span
-              ><select class="select select-sm field-select bg-white w-15.75">
+              ><select class="select select-sm field-select bg-base-100 w-15.75">
                 <option>1 Hari</option>
                 <option>2 Hari</option>
                 <option>3 Hari</option>
@@ -199,7 +203,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             >
             <label
               ><span class="field-label my-4">Pulang</span
-              ><select class="select select-sm field-select bg-white w-20">
+              ><select class="select select-sm field-select bg-base-100 w-20">
                 <option>1 Hari</option>
                 <option>2 Hari</option>
                 <option>3 Hari</option>
@@ -208,7 +212,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             >
             <label
               ><span class="field-label my-4">Udzur Lain</span
-              ><select class="select select-sm field-select bg-white w-20">
+              ><select class="select select-sm field-select bg-base-100 w-20">
                 <option>1 Hari</option>
                 <option>2 Hari</option>
                 <option>3 Hari</option>
@@ -217,40 +221,40 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             >
             <label
               ><span class="field-label my-4">Mengajar Al-Qur’an</span
-              ><select class="select select-sm field-select bg-white w-20">
+              ><select class="select select-sm field-select bg-base-100 w-20">
                 <option>Iya</option>
                 <option>Tidak</option>
               </select></label
             >
             <label
               ><span class="field-label my-4">Mengajar Kitab</span
-              ><select class="select select-sm field-select bg-white w-20">
+              ><select class="select select-sm field-select bg-base-100 w-20">
                 <option>Iya</option>
                 <option>Tidak</option>
               </select></label
             >
             <label
               ><span class="field-label my-4">Imam Sholat Jum’at</span
-              ><select class="select select-sm field-select bg-white w-20">
+              ><select class="select select-sm field-select bg-base-100 w-20">
                 <option>Iya</option>
                 <option>Tidak</option>
               </select></label
             >
             <label
               ><span class="field-label my-4">Imam Sholat Maktubah</span
-              ><select class="select select-sm field-select bg-white w-20">
+              ><select class="select select-sm field-select bg-base-100 w-20">
                 <option>Iya</option>
                 <option>Tidak</option>
               </select></label
             >
           </div>
         </div>
-        <div class="card p-2.5">
-          <h2 class="section-title">Penilaian &amp; Catatan</h2>
+        <div class="card p-2.5 bg-base-200">
+          <h2 class="section-title text-primary">Penilaian &amp; Catatan</h2>
           <div class="mb-3.25">
             <span class="field-label">Hubungan dengan PJGT</span>
             <div class="flex gap-0.5 text-[17px] leading-none">
-              <select class="select select-sm field-select bg-white w-20">
+              <select class="select select-sm field-select bg-base-100 w-20">
                 <option>Baik</option>
                 <option>Cukup Baik</option>
                 <option>Sangat Baik</option>
@@ -260,7 +264,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           <div class="mb-3.25">
             <span class="field-label">Hubungan dengan Guru Lain</span>
             <div class="flex gap-0.5 text-[17px] leading-none">
-              <select class="select select-sm field-select bg-white w-20">
+              <select class="select select-sm field-select bg-base-100 w-20">
                 <option>Baik</option>
                 <option>Cukup Baik</option>
                 <option>Sangat Baik</option>
@@ -271,19 +275,19 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             ><span class="field-label">Tugas Tambahan selain mengajar</span
             ><textarea
               placeholder="Silakan masukkan tugas tambahan..."
-              class="field resize-y"
+              class="field resize-y bg-base-100"
             ></textarea>
           </label>
           <label class="mb-2.5 block"
             ><span class="field-label">Usulan dan Saran kepada UGT</span
             ><textarea
               placeholder="Silakan masukkan usulan dan saran..."
-              class="field resize-y"
+              class="field resize-y bg-base-100"
             ></textarea>
           </label>
           <label class="mb-2.5 block"
             ><span class="field-label">Bisyaroh Bulan Ini</span
-            ><select class="select select-sm field-select bg-white w-20">
+            ><select class="select select-sm field-select bg-base-100 w-20">
               <option>700</option>
               <option>800</option>
               <option>900</option>
@@ -292,7 +296,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           >
           <label class="block"
             ><span class="field-label">Pemberian Bisyaroh</span
-            ><select class="select select-sm field-select bg-white w-20">
+            ><select class="select select-sm field-select bg-base-100 w-20">
               <option>Tepat waktu</option>
               <option>Terlambat</option>
             </select></label
@@ -300,7 +304,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 
           <button
             type="submit"
-            class="mt-4 w-full rounded-lg bg-primary py-3 text-[11px] font-bold text-primary-content"
+            class="mt-4 w-full rounded-lg bg-primary py-3 text-[11px] font-bold text-accent-content"
           >
             Simpan Laporan
           </button>

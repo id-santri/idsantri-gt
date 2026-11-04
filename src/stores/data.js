@@ -42,3 +42,33 @@ export const dataGuruTugas = defineStore('guru', () => {
 
   return { detailData }
 })
+
+export const useThemeStore = defineStore('theme', () => {
+  // Ambil tema awal dari localStorage atau gunakan preferensi sistem OS
+  const getInitialTheme = () => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme) return savedTheme
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+
+  const currentTheme = ref(getInitialTheme())
+
+  // Fungsi untuk menerapkan tema ke elemen HTML root
+  const initTheme = () => {
+    document.documentElement.setAttribute('data-theme', currentTheme.value)
+  }
+
+  // Fungsi untuk mengganti tema (Toggle)
+  const toggleTheme = () => {
+    currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
+    document.documentElement.setAttribute('data-theme', currentTheme.value)
+    localStorage.setItem('theme', currentTheme.value)
+  }
+
+  return {
+    currentTheme,
+    initTheme,
+    toggleTheme,
+  }
+})

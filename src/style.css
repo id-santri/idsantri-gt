@@ -1,14 +1,41 @@
 @import 'tailwindcss';
-@plugin "daisyui";
-@plugin "daisyui/theme" {
-  name: 'retro';
-  default: true;
-
-  --color-primary: #123f31;
-  --color-primary-content: whitesmoke;
+/* Muat plugin daisyUI dan daftarkan nama tema kustom Anda */
+@plugin "daisyui" {
+  themes:
+    mylight --default,
+    mydark;
 }
 
-@theme {
+/* Konfigurasi nilai warna untuk masing-masing tema kustom */
+@plugin "daisyui/theme" {
+  name: 'mylight';
+  --color-primary: #214638;
+  --color-primary-content: #fff;
+
+  --color-secondary: #ec4899;
+  --color-accent-content: #e7c94d;
+  --color-neutral: #1f2937;
+  --color-base-100: #ffffff; /* Background utama */
+  --color-base-200: #f3f4f6;
+  --color-base-300: #e5e7eb;
+  --color-base-content: #1f2937; /* Warna teks utama */
+}
+
+@plugin "daisyui/theme" {
+  name: 'mydark';
+  --color-primary: #4b7626;
+  --color-primary-content: #214638;
+
+  --color-secondary: #f472b6;
+  --color-accent-content: #d1ae26;
+  --color-neutral: #2a323c;
+  --color-base-100: #1d232a; /* Background gelap */
+  --color-base-200: #191e24;
+  --color-base-300: #15191e;
+  --color-base-content: #a6adbb; /* Warna teks terang */
+}
+
+/* @theme {
   --color-dasar: #000;
   --color-ugt-forest: #173f31;
   --color-ugt-deep: #123d30;
@@ -18,14 +45,14 @@
   --color-ugt-muted: #66746e;
 
   --shadow-soft: 0 2px 8px rgba(21, 54, 43, 0.07);
-}
+} */
 
-:root {
+/* :root {
   font-family: 'Montserrat', sans-serif;
   color: #1b4033;
   background: #eef1f5;
   font-synthesis: none;
-}
+} */
 * {
   box-sizing: border-box;
 }
@@ -53,7 +80,7 @@ select {
 .card {
   border: 1px solid #e5e9e8;
   border-radius: 13px;
-  background: white;
+  /* background: white; */
   box-shadow: 0 2px 5px rgba(26, 55, 45, 0.035);
 }
 .field-label {
@@ -61,17 +88,17 @@ select {
   margin-bottom: 6px;
   font-size: 9px;
   font-weight: 700;
-  color: #42564d;
+  /* color: #42564d; */
 }
 .field {
   width: 100%;
   min-height: 32px;
   border: 1px solid #dce2e0;
   border-radius: 9px;
-  background: #fff;
+  /* background: #fff; */
   padding: 7px 9px;
   font-size: 10px;
-  color: #344c42;
+  /* color: #344c42; */
   outline: none;
 }
 .field-select {
@@ -83,7 +110,7 @@ select {
   padding: 18px 20px;
 
   font-size: 10px;
-  color: #344c42;
+  /* color: #344c42; */
   outline: none;
 }
 .field:focus {
@@ -94,14 +121,14 @@ select {
   font-size: 12px;
   line-height: 1.2;
   font-weight: 800;
-  color: #214638;
+  /* color: #214638; */
   margin: 0 0 12px;
 }
 .small-label {
   display: block;
   font-size: 9px;
   font-weight: 700;
-  color: #52635b;
+  /* color: #52635b; */
   margin: 0 0 5px;
 }
 
