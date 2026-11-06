@@ -55,7 +55,9 @@ onMounted(() => {
             />
           </svg>
         </label>
-        <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
+        <button @click="$router.push('/login')">
+          <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
+        </button>
         <!-- <p class="text-[12px] font-bold">LOG OUT</p> -->
       </button>
     </header>
