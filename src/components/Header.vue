@@ -2,6 +2,9 @@
 import { ref, onMounted } from 'vue'
 // import ThemeToggle from './ThemeToggle.vue'
 import { useThemeStore } from '../stores/data'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const themeStore = useThemeStore()
 
@@ -9,6 +12,22 @@ onMounted(() => {
   // Jalankan inisialisasi tema saat komponen dimuat agar warna langsung diterapkan
   themeStore.initTheme()
 })
+const handleLogout = () => {
+  // Menghapus token dari localStorage
+  localStorage.removeItem('token')
+
+  // Kembalikan ke halaman login
+  router.push('/login')
+}
+
+// State untuk mengontrol buka/tutup modal
+const isModalOpen = ref(false)
+
+// Fungsi pembungkus untuk menjalankan handleLogout bawaan Anda
+const triggerLogout = () => {
+  isModalOpen.value = false // Tutup modal dulu
+  handleLogout() // Jalankan fungsi logout asli Anda
+}
 </script>
 
 <template>
@@ -17,7 +36,7 @@ onMounted(() => {
       class="flex h-11.25 fixed max-w-109.5 top-0 z-20 items-center justify-between bg-primary text-primary-content px-5.5 py-7 shadow-sm left-1/2 -translate-x-1/2 w-full"
     >
       <div class="flex items-center gap-2">
-        <RouterLink to="/" class="flex items-center gap-2">
+        <RouterLink to="/dashboard" class="flex items-center gap-2">
           <img
             src="../assets/logo-pondok.png"
             class="flex h-8.75 w-8.75 items-center justify-center rounded-[7px] bg-primary-content text-[12px] font-black text-[#1e4032]"
@@ -32,7 +51,7 @@ onMounted(() => {
         </div>
       </div>
 
-      <button class="flex gap-3 5rounded-md px-2 py-0.75 text-secondary-content items-center">
+      <div class="flex gap-3 5rounded-md px-2 py-0.75 text-secondary-content items-center">
         <label class="swap swap-rotate">
           <!-- Checkbox tersembunyi yang mendengarkan state Pinia -->
           <input
@@ -55,11 +74,40 @@ onMounted(() => {
             />
           </svg>
         </label>
-        <button @click="$router.push('/login')">
+        <button @click="isModalOpen = true">
           <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
         </button>
         <!-- <p class="text-[12px] font-bold">LOG OUT</p> -->
-      </button>
+        <!-- Komponen Modal Konfirmasi daisyUI -->
+        <teleport to="body">
+          <dialog class="modal" :class="{ 'modal-open': isModalOpen }">
+            <div class="modal-box">
+              <h3 class="text-lg font-bold text-error">Konfirmasi Logout</h3>
+              <p class="py-4">Apakah Anda yakin ingin keluar dari akun ini?</p>
+              <div class="modal-action">
+                <!-- Tombol Batal -->
+                <button
+                  @click="isModalOpen = false"
+                  class="btn btn-warning py-1 px-3 bg-accent-content text-primary rounded-[20px] border-none"
+                >
+                  Batal
+                </button>
+                <!-- Tombol Eksekusi Logout yang asli -->
+                <button
+                  @click="triggerLogout"
+                  class="btn btn-warning py-1 px-3 bg-primary text-accent-content rounded-[20px] border-none"
+                >
+                  Ya, Logout
+                </button>
+              </div>
+            </div>
+            <!-- Klik di luar modal untuk menutup (opsional) -->
+            <form method="dialog" class="modal-backdrop">
+              <button @click="isModalOpen = false">close</button>
+            </form>
+          </dialog>
+        </teleport>
+      </div>
     </header>
   </section>
 </template>

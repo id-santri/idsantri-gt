@@ -6,9 +6,9 @@
     <nav
       class="absolute max-w-109.5 left-1/2 -translate-x-1/2 bottom-0 z-20 grid h-[80px] grid-cols-3 bg-base-300 px-2 pt-2 w-full"
     >
-      <!-- Tombol 1: Beranda / Dashboard (Jalur '/') -->
+      <!-- Tombol 1: Beranda / Dashboard (Jalur '/dashboard') -->
       <RouterLink
-        to="/"
+        to="/dashboard"
         class="flex flex-col items-center justify-center gap-1 text-[9px] no-underline"
       >
         <font-awesome-icon icon="fa-solid fa-gauge" class="text-2xl text-primary" />

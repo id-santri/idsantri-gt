@@ -287,13 +287,8 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           </label>
           <label class="mb-2.5 block"
             ><span class="field-label">Bisyaroh Bulan Ini</span
-            ><select class="select select-sm field-select bg-base-100 w-20">
-              <option>700</option>
-              <option>800</option>
-              <option>900</option>
-              <option>1000</option>
-            </select></label
-          >
+            ><input type="number" class="field bg-base-100"
+          /></label>
           <label class="block"
             ><span class="field-label">Pemberian Bisyaroh</span
             ><select class="select select-sm field-select bg-base-100 w-20">

@@ -78,16 +78,26 @@ const router = createRouter({
 router.beforeEach((to) => {
   // console.log("beforeEach to", to.fullPath);
   if (to.fullPath == '/') {
-    return '/dashboard'
+    return '/login'
   }
-  // cek route tujuan
-  // if
-  // jika route tujuan adalah /login atau /register,
-  // maka jika sudah punya token, redirect ke /home
 
-  // else
-  // jika route tujuan bukan /login atau /register, maka cek token
-  // jika tidak punya token, redirect ke /login
+  // Mengambil token (contoh menggunakan localStorage, silakan sesuaikan dengan state management Anda)
+  const token = localStorage.getItem('token')
+
+  // jika route tujuan adalah /login atau /register
+  if (to.fullPath === '/login' || to.fullPath === '/register') {
+    // maka jika sudah punya token, redirect ke /home
+    if (token) {
+      return '/dashboard'
+    }
+  }
+  // else (jika route tujuan bukan /login atau /register)
+  else {
+    // jika tidak punya token, redirect ke /login
+    if (!token) {
+      return '/login'
+    }
+  }
 
   return true
 })

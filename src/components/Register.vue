@@ -19,12 +19,14 @@ const handleRegister = () => {
 <template>
   <!-- Container Tampilan Mobile (Simulasi Layar HP) -->
   <div
-    class="mx-auto my-0 flex min-h-screen max-w-md flex-col justify-between bg-brand-white px-6 py-8 shadow-xl font-sans"
+    class="mx-auto my-0 flex min-h-screen max-w-109.5 flex-col justify-between bg-brand-white px-6 py-8 shadow-xl font-sans"
   >
     <!-- Bagian Atas / Header -->
     <div class="mt-4">
-      <h2 class="text-2xl font-bold text-brand-darkgreen">Buat Akun Baru</h2>
-      <p class="mt-1 text-sm text-gray-500">Mulai petualangan Anda bersama kami</p>
+      <h2 class="text-2xl font-bold pt-5 text-brand-darkgreen">Buat Akun Baru</h2>
+      <p class="mt-1 text-sm text-gray-500">
+        Mulai menjadi bagian dari Guru Tugas PP. Syaichona Moh. Cholil Bangkalan
+      </p>
       <!-- Garis dekoratif perpaduan warna -->
       <div class="mt-4 h-1.5 w-16 bg-brand-darkgreen rounded-full relative">
         <div class="absolute right-0 top-0 h-full w-4 bg-brand-yellow rounded-full"></div>
@@ -91,9 +93,14 @@ const handleRegister = () => {
         <!-- Tombol Submit -->
         <button
           type="submit"
-          class="w-full mt-4 py-3.5 bg-brand-darkgreen text-brand-white font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
+          class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
         >
-          Daftar Akun
+          <router-link
+            to="/login"
+            class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
+          >
+            Daftar Akun
+          </router-link>
         </button>
       </form>
     </div>
