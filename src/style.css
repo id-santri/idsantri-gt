@@ -23,7 +23,7 @@
 
 @plugin "daisyui/theme" {
   name: 'mydark';
-  --color-primary: #4b7626;
+  --color-primary: #166534;
   --color-primary-content: #214638;
 
   --color-secondary: #f472b6;

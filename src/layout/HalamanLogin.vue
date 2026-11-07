@@ -12,7 +12,7 @@ onMounted(() => {
 <template>
   <!-- <Header /> -->
   <header
-    class="flex h-11.25 fixed max-w-109.5 top-0 z-20 items-center justify-between bg-primary text-primary-content px-5.5 py-7 shadow-sm left-1/2 -translate-x-1/2 w-full"
+    class="flex h-11.25 fixed max-w-109.5 top-0 z-20 items-center justify-between bg-primary text-base-300 px-5.5 py-7 shadow-sm left-1/2 -translate-x-1/2 w-full"
   >
     <div class="flex items-center gap-2">
       <div class="flex items-center gap-2">

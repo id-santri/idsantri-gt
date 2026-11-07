@@ -28,7 +28,6 @@ const handleLogin = () => {
   // })
   // Tambahkan logika API login Anda di sini
 }
-
 </script>
 
 <template>
@@ -52,10 +51,10 @@ const handleLogin = () => {
       >
         Laporan Guru Tugas
       </p>
-      <p class="mx-auto max-w-85 text-[16px] leading-[1.22] tracking-[.2px] text-primary">
+      <p class="mx-auto max-w-85 text-[16px] leading-[1.22] tracking-[.2px] text-base-content">
         Pondok Pesantren
       </p>
-      <p class="mx-auto max-w-85 text-[16px] leading-[1.22] tracking-[.2px] text-primary">
+      <p class="mx-auto max-w-85 text-[16px] leading-[1.22] tracking-[.2px] text-base-content">
         Syachona Moh. Cholil Bangkalan
       </p>
       <!-- <p class="mt-2 text-sm text-gray-500">Silakan masuk ke akun Anda</p> -->
@@ -72,7 +71,7 @@ const handleLogin = () => {
             type="email"
             required
             placeholder="nama@email.com"
-            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
+            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
 
@@ -84,13 +83,13 @@ const handleLogin = () => {
             type="password"
             required
             placeholder="••••••••"
-            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
+            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
 
         <!-- Opsi Tambahan -->
         <div class="flex items-center justify-between text-xs pt-1">
-          <label class="flex items-center text-gray-600">
+          <label class="flex items-center text-brand-darkgreen">
             <input
               v-model="rememberMe"
               type="checkbox"
@@ -113,7 +112,7 @@ const handleLogin = () => {
     </div>
 
     <!-- Bagian Footer / Navigasi Pindah Halaman -->
-    <div class="mt-8 text-center text-sm text-gray-600">
+    <div class="mt-8 text-center text-sm text-brand-darkgreen">
       Belum punya akun?
       <router-link
         to="/register"

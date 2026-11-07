@@ -5,28 +5,30 @@ const store = useLaporanStore()
 </script>
 
 <template>
-  <section class="mx-auto min-h-screen max-w-106.5 bg-[#eef1f5] pb-12 pt-6">
+  <section class="mx-auto min-h-screen max-w-106.5 bg-base-300 pb-12 pt-6">
     <div class="px-0.5 pb-5 pt-3.25">
-      <select class="select mt-9 rounded-[10px] bg-white w-full">
+      <select
+        class="select mt-9 rounded-[10px] bg-base-100 border border-gray-100 text-base-content w-full"
+      >
         <option disabled selected>Tahun Ajaran</option>
         <option>1448-1449 H</option>
         <option>1448-1449 H</option>
         <option>1448-1449 H</option>
       </select>
       <div
-        class="card p-2.5 min-h-screen pt-10 pb-20 mt-3 mb-6 relative bg-white rounded-3xl w-full max-w-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex flex-col items-center sm:items-start gap-6 font-san"
+        class="card p-2.5 min-h-screen pt-10 pb-20 mt-3 mb-6 relative bg-base-100 rounded-3xl w-full max-w-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex flex-col items-center sm:items-start gap-6 font-san"
       >
         <!-- HEADER -->
         <div class="flex justify-between items-center mb-6 w-full">
           <div class="flex items-baseline">
-            <h1 class="text-[clamp(16px,4cqw,24px)] font-bold text-[#1e3d30]">Rekap Laporan GT</h1>
+            <h1 class="text-[clamp(16px,4cqw,24px)] font-bold text-base-content">Rekap Laporan GT</h1>
             <!-- Menampilkan panjang list array dari Store -->
           </div>
 
           <!-- Tombol Tambah -->
           <RouterLink
             to="/form"
-            class="bg-[#1e3d30] hover:bg-[#152a21] text-white text-[clamp(10px,2cqw,12px)] font-semibold px-4 py-2 rounded-lg flex items-center gap-1 transition duration-200 cursor-pointer"
+            class="bg-primary hover:bg-[#152a21] text-white text-[clamp(10px,2cqw,12px)] font-semibold px-4 py-2 rounded-lg flex items-center gap-1 transition duration-200 cursor-pointer"
           >
             <span>+</span> Tambah
           </RouterLink>
@@ -37,19 +39,19 @@ const store = useLaporanStore()
           <div
             v-for="laporan in store.daftarLaporan"
             :key="laporan.id"
-            class="flex items-stretch border border-[#1e3d30] rounded-xl overflow-hidden shadow-sm"
+            class="flex items-stretch border border-base-content rounded-xl overflow-hidden shadow-sm"
           >
             <!-- Badge Angka Index/ID -->
             <div
-              class="w-[12%] max-w-[56px] min-w-[40px] bg-[#1e3d30] text-white flex items-center justify-center font-bold text-[clamp(14px,3cqw,18px)] flex-shrink-0"
+              class="w-[12%] max-w-[56px] min-w-[40px] bg-primary text-white flex items-center justify-center font-bold text-[clamp(14px,3cqw,18px)] flex-shrink-0"
             >
               {{ laporan.id }}
             </div>
 
             <!-- Isi Konten Laporan -->
-            <div class="flex-1 p-3 flex justify-between items-center bg-white min-w-0">
+            <div class="flex-1 p-3 flex justify-between items-center bg-base-100 min-w-0">
               <div class="truncate pr-4">
-                <h3 class="font-bold text-gray-800 text-[clamp(12px,2.5cqw,16px)] truncate">
+                <h3 class="font-bold text-base-content text-[clamp(12px,2.5cqw,16px)] truncate">
                   {{ laporan.judul }}
                 </h3>
                 <p class="text-[clamp(10px,2cqw,12px)] text-gray-500 font-medium mt-0.5 truncate">
@@ -60,7 +62,7 @@ const store = useLaporanStore()
               <!-- Tombol Detail -->
               <RouterLink
                 to="/laporan"
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold text-[clamp(10px,2cqw,12px)] px-4 py-2 rounded-lg transition duration-200 flex-shrink-0 cursor-pointer"
+                class="bg-base-300 hover:bg-gray-300 text-base-content font-semibold text-[clamp(10px,2cqw,12px)] px-4 py-2 rounded-lg transition duration-200 flex-shrink-0 cursor-pointer"
               >
                 Detail
               </RouterLink>

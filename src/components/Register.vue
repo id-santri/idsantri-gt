@@ -24,7 +24,7 @@ const handleRegister = () => {
     <!-- Bagian Atas / Header -->
     <div class="mt-4">
       <h2 class="text-2xl font-bold pt-5 text-brand-darkgreen">Buat Akun Baru</h2>
-      <p class="mt-1 text-sm text-gray-500">
+      <p class="mt-1 text-sm text-brand-darkgreen">
         Mulai menjadi bagian dari Guru Tugas PP. Syaichona Moh. Cholil Bangkalan
       </p>
       <!-- Garis dekoratif perpaduan warna -->
@@ -44,7 +44,7 @@ const handleRegister = () => {
             type="text"
             required
             placeholder="Masukkan nama lengkap Anda"
-            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
+            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
 
@@ -56,7 +56,7 @@ const handleRegister = () => {
             type="email"
             required
             placeholder="nama@email.com"
-            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
+            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
 
@@ -70,7 +70,7 @@ const handleRegister = () => {
             type="password"
             required
             placeholder="Minimal 8 karakter"
-            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
+            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
 
@@ -82,7 +82,7 @@ const handleRegister = () => {
             required
             class="mt-0.5 h-4 w-4 rounded text-brand-darkgreen focus:ring-brand-darkgreen border-gray-300 accent-brand-darkgreen mr-2"
           />
-          <span class="text-gray-600 leading-tight">
+          <span class="text-brand-darkgreen leading-tight">
             Saya menyetujui
             <a href="#" class="font-medium text-brand-darkgreen underline">Syarat Ketentuan</a> dan
             <a href="#" class="font-medium text-brand-darkgreen underline">Kebijakan Privasi</a>
@@ -106,7 +106,7 @@ const handleRegister = () => {
     </div>
 
     <!-- Bagian Footer / Navigasi Pindah Halaman -->
-    <div class="mt-8 text-center text-sm text-gray-600">
+    <div class="mt-8 text-center text-sm text-brand-darkgreen">
       Sudah punya akun?
       <router-link
         to="/login"

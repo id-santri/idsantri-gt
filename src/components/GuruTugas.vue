@@ -26,11 +26,11 @@ const handleImageUpload = (event) => {
 </script>
 
 <template>
-  <section class="mx-auto min-h-screen bg-[#eef1f5]">
-    <div class="max-w-106.5 mx-auto min-h-screen bg-[#eef1f5]">
+  <section class="mx-auto min-h-screen bg-base-100">
+    <div class="max-w-106.5 mx-auto min-h-screen bg-base-200">
       <div class="mt-0.75 space-y-2.5">
         <div
-          class="card p-2.5 min-h-screen pt-10 pb-20 mt-7 mb-6 relative bg-white rounded-3xl w-full max-w-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex flex-col items-center sm:items-start gap-6 font-san"
+          class="card p-2.5 min-h-screen pt-10 pb-20 mt-7 mb-6 relative bg-base-200 rounded-3xl w-full max-w-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex flex-col items-center sm:items-start gap-6 font-san"
         >
           <div
             class="w-full aspect-[85.6/53.98] bg-gradient-to-br from-green-600 to-green-800 text-white rounded-2xl shadow-xl p-[5%] flex flex-col justify-between overflow-hidden relative"
@@ -168,8 +168,10 @@ const handleImageUpload = (event) => {
             </div>
           </div>
           <!-- INPUT TOMBOL UPLOAD -->
-          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Ganti Foto Profil</label>
+          <div class="bg-base-100 p-4 rounded-xl shadow-sm border border-gray-200">
+            <label class="block text-sm font-medium text-base-content mb-2"
+              >Ganti Foto Profil</label
+            >
             <input
               type="file"
               accept="image/*"
@@ -179,16 +181,16 @@ const handleImageUpload = (event) => {
           </div>
 
           <div
-            class="w-full max-w-sm rounded-2xl bg-white p-6 shadow-sm flex flex-col items-center"
+            class="w-full max-w-sm rounded-2xl bg-base-100 border border-gray-200 p-6 shadow-sm flex flex-col items-center"
           >
-            <h2 class="mb-4 text-lg font-bold text-slate-800 text-center">QR Code Guru Tugas</h2>
+            <h2 class="mb-4 text-lg font-bold text-base-content text-center">QR Code Guru Tugas</h2>
 
             <!-- Area Tampilan QR Code -->
             <div
               v-if="dataId"
-              class="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 w-full"
+              class="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-base-300 p-6 w-full"
             >
-              <div class="rounded-lg bg-white p-3 shadow-xs">
+              <div class="rounded-lg bg-base-100 p-3 shadow-xs">
                 <!-- Value otomatis berisi ID dari Pinia -->
                 <QrcodeVue :value="dataId" :size="qrSize" level="H" />
               </div>
