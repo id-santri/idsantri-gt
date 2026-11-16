@@ -68,9 +68,9 @@ const handleLogin = () => {
           <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Alamat Email</label>
           <input
             v-model="email"
-            type="email"
+            type="number"
             required
-            placeholder="nama@email.com"
+            placeholder="123456789"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>

@@ -15,9 +15,18 @@ const currentMonth = computed(() => {
 })
 
 const data = dataGuruTugas()
+const waliKelas = ref(data.waliKelas)
+const guruFan = ref(data.guruFan)
+const bulanHijri = ref(data.bulanHijri)
+const detailData = ref(data.detailData)
+console.log(waliKelas.value)
+console.log(guruFan.value)
+console.log(bulanHijri.value)
+console.log(detailData.value)
 
 function onSubmit() {
-  console.log(data.detailData)
+  const json = JSON.parse(JSON.stringify(detailData.value))
+  console.log(json)
 }
 
 // State reaktif untuk menampung data pilihan
@@ -109,7 +118,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
               </p>
             </div>
           </div>
-          <div v-for="guru in data.detailData" :key="guru.id" class="mt-2.75 space-y-2.5">
+          <div>
             <label
               ><span class="field-label my-2">Laporan Bulan</span>
               <input
@@ -126,29 +135,59 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             </label>
             <label
               ><span class="field-label my-4">Nama GT</span
-              ><input v-model="guru.nama" type="text" class="field bg-base-100"
+              ><input disabled v-model="detailData.nama" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Nama PJGT</span
-              ><input v-model="guru.namaPjgt" type="text" class="field bg-base-100"
+              ><input v-model="detailData.namaPjgt" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Nama Madrasah/Ponpes</span
-              ><input v-model="guru.tempatTugas" type="text" class="field bg-base-100"
+              ><input v-model="detailData.tempatTugas" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Alamat</span
-              ><input v-model="guru.alamat" type="text" class="field bg-base-100"
+              ><input v-model="detailData.alamat" type="text" class="field bg-base-100"
             /></label>
           </div>
         </div>
+
+        <!-- contoh -->
+        <div>
+          <div class="badge badge-xs">Ibtidaiyah 1</div>
+          <button class="btn btn-sm btn-primary">tambahkan jenjang</button>
+        </div>
+
+        <label>
+          Pilih Jenjang
+          <input type="text" class="field bg-base-100" />
+        </label>
+        <label>
+          Pilih Kelas
+          <input type="text" class="field bg-base-100" />
+        </label>
+        <pre> bulan {{ detailData.bulan }}</pre>
+        <select class="select select-accent" v-model="detailData.bulan">
+          <option
+            v-for="bulan in bulanHijri"
+            :key="bulan"
+            :value="bulan.no"
+            @model-update="detailData.bulan = bulan.no"
+          >
+            {{ bulan.bulan }}
+          </option>
+        </select>
+
+        <!-- end contoh -->
+
         <div class="card p-2.5 bg-base-200">
           <h2 class="section-title text-primary">Menjadi Wali Kelas</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
             <div class="flex gap-1 flex-col">
               <label
-                ><select class="select select-sm field-select text-base-content bg-base-100 w-20">
+                >0000
+                <select class="select select-sm field-select text-base-content bg-base-100 w-20">
                   <option>Kelas 1</option>
                   <option>Kelas 2</option>
                   <option>Kelas 3</option>

@@ -4,11 +4,18 @@ import { dataGuruTugas } from '../stores/data'
 import QrcodeVue from 'qrcode.vue'
 
 const data = dataGuruTugas()
+const idGuru = ref(data.detailData.id || '')
+const namaGuru = ref(data.detailData.nama || '')
+const umurGuru = ref(data.detailData.umur || '')
+const tahunAjaranGuru = ref(data.detailData.tahun_ajaran || '')
+const tempatTugasGuru = ref(data.detailData.tempat_tugas || '')
+const alamatGuru = ref(data.detailData.alamat || '')
+const statusGuru = ref(data.detailData.status || '')
 const qrSize = ref(200)
 
 // Menggunakan optional chaining yang aman untuk mengambil ID guru
 const dataId = computed(() => {
-  return data.detailData?.[0]?.id?.toString() || ''
+  return data.detailData.id.toString() || ''
 })
 
 // Gambar default jika user belum mengunggah foto
@@ -36,11 +43,7 @@ const handleImageUpload = (event) => {
             class="w-full aspect-[85.6/53.98] bg-gradient-to-br from-green-600 to-green-800 text-white rounded-2xl shadow-xl p-[5%] flex flex-col justify-between overflow-hidden relative"
           >
             <!-- Bagian Atas / Header Kartu -->
-            <div
-              v-for="guru in data.detailData"
-              :key="guru.id"
-              class="flex justify-between items-start"
-            >
+            <div class="flex justify-between items-start">
               <div>
                 <h2 class="text-[clamp(10px,4.5cqw,24px)] font-bold tracking-wider leading-none">
                   GURU TUGAS
@@ -51,7 +54,7 @@ const handleImageUpload = (event) => {
               </div>
 
               <button
-                v-if="guru.status === true"
+                v-if="statusGuru == true"
                 class="btn-warning py-1 px-3 bg-yellow-500 rounded-[20px] flex items-center justify-center text-green-900"
               >
                 <p class="text-[10px] font-bold">Aktif</p>
@@ -79,11 +82,13 @@ const handleImageUpload = (event) => {
               </div>
 
               <!-- Detail Teks -->
-              <div v-for="guru in data.detailData" :key="guru.id" class="flex-1 min-w-0">
+              <div class="flex-1 min-w-0">
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
                   <p class="text-[14px] opacity-60 mt-1 font-mono">Id</p>
                   <p class="text-[14px] opacity-60 mt-1 font-mono">:</p>
-                  <p class="text-[14px] opacity-60 mt-1 font-mono">{{ guru.id }}</p>
+                  <p class="text-[14px] opacity-60 mt-1 font-mono">
+                    {{ idGuru }}
+                  </p>
                 </div>
                 <div
                   class="grid grid-cols-[80px_12px_1fr] items-baseline font-medium tracking-wide"
@@ -91,7 +96,7 @@ const handleImageUpload = (event) => {
                   <p class="text-[14px] opacity-60 mt-1 font-mono">Nama</p>
                   <p class="text-[14px] opacity-60 mt-1 font-mono">:</p>
                   <h3 class="text-[14px] font-bold opacity-100 truncate leading-tight font-mono">
-                    {{ guru.nama }}
+                    {{ namaGuru }}
                   </h3>
                 </div>
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
@@ -108,7 +113,7 @@ const handleImageUpload = (event) => {
                   <p
                     class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
                   >
-                    {{ guru.umur }}
+                    {{ umurGuru }}
                   </p>
                 </div>
 
@@ -126,7 +131,7 @@ const handleImageUpload = (event) => {
                   <p
                     class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
                   >
-                    {{ guru.tahunAjaran }}
+                    {{ tahunAjaranGuru }}
                   </p>
                 </div>
 
@@ -144,7 +149,7 @@ const handleImageUpload = (event) => {
                   <p
                     class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
                   >
-                    {{ guru.tempatTugas }}
+                    {{ tempatTugasGuru }}
                   </p>
                 </div>
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
@@ -161,7 +166,7 @@ const handleImageUpload = (event) => {
                   <p
                     class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
                   >
-                    {{ guru.alamat }}
+                    {{ alamatGuru }}
                   </p>
                 </div>
               </div>

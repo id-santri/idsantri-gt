@@ -9,6 +9,15 @@
         <h2 class="text-[clamp(12px,4cqw,24px)] font-bold tracking-wider leading-none">
           Laporan GT
         </h2>
+        <button class="btn btn-sm btn-primary absolute top-3 right-3">tambahkan jenjang</button>
+        <div>
+          <input
+            type="text"
+            class="input input-bordered w-full max-w-lg"
+            label="tingkat pendidikan"
+          />
+          <input type="text" class="input input-bordered w-full max-w-lg" label="kelas" />
+        </div>
       </div>
     </div>
   </section>
