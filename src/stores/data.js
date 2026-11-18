@@ -37,14 +37,14 @@ export const dataGuruTugas = defineStore('guru', () => {
     nama_pjgt: 'KH. Muhammad Karom',
     status: true,
     bulan: '1',
-    wali_kelas: [
-      { tingkat: 'Ibtidaiyah', kelas: '1' },
-      { tingkat: 'Tsanawiyah', kelas: '2' },
-    ],
-    guru_fan: [
-      { tingkat: 'Ibtidaiyah', kelas: '1' },
-      { tingkat: 'Tsanawiyah', kelas: '2' },
-    ],
+    // wali_kelas: [
+    //   { tingkat: 'Ibtidaiyah', kelas: '1' },
+    //   { tingkat: 'Tsanawiyah', kelas: '2' },
+    // ],
+    // guru_fan: [
+    //   { tingkat: 'Ibtidaiyah', kelas: '1' },
+    //   { tingkat: 'Tsanawiyah', kelas: '2' },
+    // ],
   })
   const bulanHijri = [
     {

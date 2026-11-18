@@ -1,6 +1,6 @@
 <script setup>
 // // BARU
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { dataGuruTugas } from '../stores/data'
 import { computed } from 'vue'
 
@@ -24,8 +24,39 @@ console.log(guruFan.value)
 console.log(bulanHijri.value)
 console.log(detailData.value)
 
+const laporan = reactive({
+  gt_id: '1',
+  bulan_hijri: '01',
+  wali_kelas: [
+    {
+      tingkat: 'Tsanawiyah',
+      kelas: '123',
+    },
+  ],
+  guru_fan: [
+    {
+      tingkat: 'Ibtidaiyah',
+      kelas: '123',
+    },
+  ],
+  jenis_kelamin_murid: 'Laki-Laki',
+  absen_sakit: '1',
+  absen_pulang: '1',
+  absen_lainnya: '1',
+  kegiatan_quran: true,
+  kegiatan_kitab: true,
+  kegiatan_imam_jumat: true,
+  imam_maktubah: true,
+  hubungan_ke_pjgt: 'baik',
+  hubungan_ke_guru: 'baik',
+  tugas_lainnya: 'text',
+  usul_saran: 'text',
+  bisyarah_nominal: '123',
+  bisyarah_waktu: true,
+})
+
 function onSubmit() {
-  const json = JSON.parse(JSON.stringify(detailData.value))
+  const json = JSON.parse(JSON.stringify(laporan.value))
   console.log(json)
 }
 
@@ -184,10 +215,12 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           <h2 class="section-title text-primary">Menjadi Wali Kelas</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
-            <div class="flex gap-1 flex-col">
-              <label
-                >0000
-                <select class="select select-sm field-select text-base-content bg-base-100 w-20">
+            <div v-for="kelas in laporan.wali_kelas" :key="kelas" class="flex gap-1 flex-col">
+              <label>
+                <select
+                  v-model="kelas.kelas"
+                  class="select select-sm field-select text-base-content bg-base-100 w-20"
+                >
                   <option>Kelas 1</option>
                   <option>Kelas 2</option>
                   <option>Kelas 3</option>
@@ -203,9 +236,12 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           <h2 class="section-title text-primary">Menjadi Guru Fun</h2>
           <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
-            <div class="flex gap-1 flex-col">
+            <div v-for="kelas in laporan.guru_fan" :key="kelas" class="flex gap-1 flex-col">
               <fieldset class="fieldset">
-                <select class="select select-sm field-select bg-base-100 w-20">
+                <select
+                  v-model="kelas.kelas"
+                  class="select select-sm field-select bg-base-100 w-20"
+                >
                   <option>Kelas 1</option>
                   <option>Kelas 2</option>
                   <option>Kelas 3</option>
