@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 
-const name = ref('')
+const id_gt = ref('')
+const otp_request = ref('')
 const email = ref('')
-const password = ref('')
 const termsAccepted = ref(false)
 
 const handleRegister = () => {
@@ -11,9 +11,24 @@ const handleRegister = () => {
     alert('Anda harus menyetujui Syarat dan Ketentuan.')
     return
   }
-  console.log('Proses Daftar:', { name: name.value, email: email.value, password: password.value })
+  // 1. Bungkus data menjadi satu objek
+  const dataRegister = {
+    gt_id: Number(id_gt.value),
+    otp: otp_request.value,
+    email: email.value,
+  }
+  console.log('Data Registrasi:', dataRegister)
+
+  // Simpan ke Local Storage browser
+  localStorage.setItem('data_registrasi', JSON.stringify(dataRegister))
+
+  alert('Data berhasil disimpan ke Local Storage!')
   // Tambahkan logika API registrasi Anda di sini
 }
+
+// console.log('ID Guru Tugas:', id_gt.value)
+// console.log('Kode OTP:', otp_request.value)
+// console.log('Alamat Email:', email.value)
 </script>
 
 <template>
@@ -23,7 +38,7 @@ const handleRegister = () => {
   >
     <!-- Bagian Atas / Header -->
     <div class="mt-4">
-      <h2 class="text-2xl font-bold pt-5 text-brand-darkgreen">Buat Akun Baru</h2>
+      <h2 class="text-2xl font-bold pt-5 text-brand-darkgreen">Registrasi Akun</h2>
       <p class="mt-1 text-sm text-brand-darkgreen">
         Mulai menjadi bagian dari Guru Tugas PP. Syaichona Moh. Cholil Bangkalan
       </p>
@@ -38,12 +53,24 @@ const handleRegister = () => {
       <form @submit.prevent="handleRegister" class="space-y-4">
         <!-- Input Nama Lengkap -->
         <div>
-          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Nama Lengkap</label>
+          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">ID Guru Tugas</label>
           <input
-            v-model="name"
-            type="text"
+            v-model="id_gt"
+            type="number"
             required
-            placeholder="Masukkan nama lengkap Anda"
+            placeholder="Masukkan ID Guru Tugas"
+            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
+          />
+        </div>
+
+        <!-- Input Password -->
+        <div>
+          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Kode OTP</label>
+          <input
+            v-model="otp_request"
+            type="number"
+            required
+            placeholder="Masukkan Kode OTP"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
@@ -56,20 +83,6 @@ const handleRegister = () => {
             type="email"
             required
             placeholder="nama@email.com"
-            class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
-          />
-        </div>
-
-        <!-- Input Password -->
-        <div>
-          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5"
-            >Kata Sandi Baru</label
-          >
-          <input
-            v-model="password"
-            type="password"
-            required
-            placeholder="Minimal 8 karakter"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
@@ -95,19 +108,14 @@ const handleRegister = () => {
           type="submit"
           class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
         >
-          <router-link
-            to="/login"
-            class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
-          >
-            Daftar Akun
-          </router-link>
+          Daftar Akun
         </button>
       </form>
     </div>
 
     <!-- Bagian Footer / Navigasi Pindah Halaman -->
     <div class="mt-8 text-center text-sm text-brand-darkgreen">
-      Sudah punya akun?
+      Sudah registrasi akun?
       <router-link
         to="/login"
         class="font-bold text-brand-darkgreen border-b-2 border-brand-yellow pb-0.5 hover:text-opacity-80"

@@ -3,30 +3,53 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const email = ref('')
-const password = ref('')
+const otp_verify = ref('')
 const rememberMe = ref(false)
 const router = useRouter()
 
-const handleLogin = () => {
-  // 1. Buat token dummy/buatan sendiri
-  // Anda bisa membuat string acak berbasis waktu agar terlihat seperti token asli
-  const dummyToken = 'dummy-token-' + btoa(email.value) + '-' + Date.now()
+// State penanda status pengiriman email
+const isEmailSent = ref(false)
 
-  // 2. ** KUNCI UTAMA **
-  // Langsung simpan token dummy tersebut ke localStorage
-  localStorage.setItem('token', dummyToken)
+const handleLogin = async () => {
+  // TAHAP 1: Jika email belum dikirim
+  if (!isEmailSent.value) {
+    if (!email.value) {
+      alert('Silakan masukkan alamat email terlebih dahulu.')
+      return
+    }
 
-  // alert('Login Berhasil (Simulasi)! Token telah disimpan.')
+    console.log('Mengirim OTP ke email:', email.value)
+    // Tambahkan pemanggilan API kirim OTP di sini...
 
-  // 3. Redirect ke halaman /home sesuai aturan router.beforeEach Anda
-  router.push('/dashboard')
+    // Ubah state menjadi true agar form berganti menampilkan input OTP
+    isEmailSent.value = true
 
-  // console.log('Proses Login:', {
-  //   email: email.value,
-  //   password: password.value,
-  //   rememberMe: rememberMe.value,
-  // })
-  // Tambahkan logika API login Anda di sini
+    // TAHAP 2: Jika email sudah dikirim (Proses verifikasi OTP)
+  } else {
+    if (!otp_verify.value) {
+      alert('Silakan masukkan kode OTP.')
+      return
+    }
+
+    console.log('Verifikasi OTP:', otp_verify.value)
+    // Tambahkan pemanggilan API verifikasi OTP di sini...
+
+    // 1. Buat dan simpan token setelah OTP valid
+    const dummyToken = 'dummy-token-' + btoa(email.value) + '-' + Date.now()
+    localStorage.setItem('token', dummyToken)
+
+    // 2. Simpan data login lengkap ke Local Storage
+    const loginData = {
+      email: email.value,
+      otp_verify: otp_verify.value,
+      rememberMe: rememberMe.value,
+    }
+    console.log('Data Login:', loginData)
+    localStorage.setItem('data_login', JSON.stringify(loginData))
+
+    // 3. Redirect ke halaman dashboard
+    router.push('/dashboard')
+  }
 }
 </script>
 
@@ -64,25 +87,27 @@ const handleLogin = () => {
     <div class="mt-8 flex-1">
       <form @submit.prevent="handleLogin" class="space-y-5">
         <!-- Input Email -->
-        <div>
-          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Alamat Email</label>
+        <div v-show="!isEmailSent">
+          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5"
+            >Masukkan Alamat Email</label
+          >
           <input
             v-model="email"
-            type="number"
-            required
-            placeholder="123456789"
+            type="email"
+            :required="!isEmailSent"
+            placeholder="nama@email.com"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
 
         <!-- Input Password -->
-        <div>
-          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Kata Sandi</label>
+        <div v-show="isEmailSent">
+          <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Kode OTP</label>
           <input
-            v-model="password"
-            type="password"
-            required
-            placeholder="••••••••"
+            v-model="otp_verify"
+            type="number"
+            :required="isEmailSent"
+            placeholder="masukkan kode OTP"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
         </div>
