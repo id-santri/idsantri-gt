@@ -1,8 +1,95 @@
 <script setup>
-// // KODE FORM BARU
+// // BARU
+import { ref, reactive } from 'vue'
+import { dataGuruTugas } from '../stores/data'
+import { computed } from 'vue'
 
-// // KODE FORM LAMA
+// Mengambil bulan terkini secara otomatis dengan format YYYY-MM
+const currentMonth = computed(() => {
+  const now = new Date()
+  const year = now.getFullYear()
+  // Ditambah 1 karena Januari dimulai dari 0, lalu ditambah 0 di depan jika di bawah 10
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+
+  return `${year}-${month}`
+})
+
+const data = dataGuruTugas()
+const waliKelas = ref(data.waliKelas)
+const guruFan = ref(data.guruFan)
+const bulanHijri = ref(data.bulanHijri)
+const detailData = ref(data.detailData)
+console.log(waliKelas.value)
+console.log(guruFan.value)
+console.log(bulanHijri.value)
+console.log(detailData.value)
+
+const laporan = reactive({
+  gt_id: '1',
+  bulan_hijri: '01',
+  wali_kelas: [
+    {
+      tingkat: 'Tsanawiyah',
+      kelas: '123',
+    },
+  ],
+  guru_fan: [
+    {
+      tingkat: 'Ibtidaiyah',
+      kelas: '123',
+    },
+  ],
+  jenis_kelamin_murid: 'Laki-Laki',
+  absen_sakit: '1',
+  absen_pulang: '1',
+  absen_lainnya: '1',
+  kegiatan_quran: true,
+  kegiatan_kitab: true,
+  kegiatan_imam_jumat: true,
+  imam_maktubah: true,
+  hubungan_ke_pjgt: 'baik',
+  hubungan_ke_guru: 'baik',
+  tugas_lainnya: 'text',
+  usul_saran: 'text',
+  bisyarah_nominal: '123',
+  bisyarah_waktu: true,
+})
+
+function onSubmit() {
+  const json = JSON.parse(JSON.stringify(laporan.value))
+  console.log(json)
+}
+
+// State reaktif untuk menampung data pilihan
+// const selectedOption = ref('')
+
+// Contoh dataset dinamis yang biasa Anda gunakan
+// const daftarTugas = ref([
+//   { id: 1, nama: 'Desain Layout Flowbite' },
+//   { id: 2, nama: 'Integrasi API Pinia Store' },
+//   { id: 3, nama: 'Perbaikan Validasi Form' },
+// ])
+
+// // LAMA
 // import { ref } from 'vue'
+// import { useRouter } from 'vue-router'
+// import { useLaporanStore } from '../stores/data'
+
+// const router = useRouter()
+// const store = useLaporanStore()
+
+// const judulInput = ref('')
+// const penulisInput = ref('Khoirul Anam') // Nilai bawaan sesuai data gambar sebelumnya
+
+// const simpanData = () => {
+//   if (judulInput.value.trim() === '') return alert('Form tidak boleh ada yang kosong!')
+
+//   // Masukkan data baru ke dalam store
+//   store.tambahLaporanBaru(judulInput.value, penulisInput.value)
+
+//   // Alihkan navigasi kembali ke halaman list rekap
+//   router.push('/laporan')
+// }
 
 const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 </script>
