@@ -88,9 +88,8 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
         </div>
       </form> -->
 
-      <!-- <div class="mb-1.25 text-[10px] font-extrabold uppercase tracking-wide text-[#28604c]">
         
-      </div> -->
+      
       <!-- <h1 class="text-[16px] font-normal leading-tight text-[#244638]">Form Laporan GT</h1> -->
       <form class="mt-3 space-y-2.5">
         <div class="card p-2.5">
