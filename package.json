@@ -8,7 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write --experimental-cli src/",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "setup": "node scripts/setup-brand.js",
+    "setup:demo": "node scripts/setup-brand.js demo",
+    "setup:syaichona": "node scripts/setup-brand.js syaichona"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
