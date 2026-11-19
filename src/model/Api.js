@@ -1,21 +1,22 @@
 import config from '../config'
 class Api {
   #BASE_URL = config.BASE_API + config.END_API
+  #TOKEN_KEY = 'gt-app-token'
 
   get BASE_URL() {
     return this.#BASE_URL
   }
 
   #saveToken(token) {
-    localStorage.setItem('token', token)
+    localStorage.setItem(this.#TOKEN_KEY, token)
   }
 
   #getToken() {
-    return localStorage.getItem('token')
+    return localStorage.getItem(this.#TOKEN_KEY)
   }
 
   #removeToken() {
-    localStorage.removeItem('token')
+    localStorage.removeItem(this.#TOKEN_KEY)
   }
 
   logout() {

@@ -1,12 +1,18 @@
 <script setup>
+import Api from '@/model/Api'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const id_gt = ref('')
 const otp_request = ref('')
 const email = ref('')
 const termsAccepted = ref(false)
+const loading = ref(false)
+const router = useRouter()
 
-const handleRegister = () => {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const handleRegister = async () => {
   if (!termsAccepted.value) {
     alert('Anda harus menyetujui Syarat dan Ketentuan.')
     return
@@ -17,12 +23,28 @@ const handleRegister = () => {
     otp: otp_request.value,
     email: email.value,
   }
+  try {
+    loading.value = true
+    const response = await delay(2000) // Tambahkan delay 1 detik
+    // const response = await Api.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
+
+    // console.log('Response dari API:', response)
+    alert(response?.message || 'Registrasi berhasil! Silakan Login.')
+    // arahkan ke halaman request otp
+    await router.push('/login')
+  } catch (error) {
+    alert(error.message || 'Terjadi kesalahan saat registrasi.')
+    // console.error('Terjadi kesalahan saat registrasi:', error)
+  } finally {
+    loading.value = false
+  }
+
   console.log('Data Registrasi:', dataRegister)
 
   // Simpan ke Local Storage browser
   localStorage.setItem('data_registrasi', JSON.stringify(dataRegister))
 
-  alert('Data berhasil disimpan ke Local Storage!')
+  // alert('Data berhasil disimpan ke Local Storage!')
   // Tambahkan logika API registrasi Anda di sini
 }
 
