@@ -2,6 +2,8 @@
 import Api from '@/model/Api'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 const id_gt = ref('')
 const otp_request = ref('')
@@ -14,7 +16,11 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const handleRegister = async () => {
   if (!termsAccepted.value) {
-    alert('Anda harus menyetujui Syarat dan Ketentuan.')
+    toast('Anda harus menyetujui Syarat dan Ketentuan.', {
+      type: 'error',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     return
   }
   // 1. Bungkus data menjadi satu objek
@@ -25,15 +31,24 @@ const handleRegister = async () => {
   }
   try {
     loading.value = true
-    const response = await delay(2000) // Tambahkan delay 1 detik
+    const response = await delay(0) // Tambahkan delay 1 detik
     // const response = await Api.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
 
     // console.log('Response dari API:', response)
-    alert(response?.message || 'Registrasi berhasil! Silakan Login.')
+    // alert(response?.message || 'Registrasi berhasil! Silakan Login.')
+    toast(response?.message || 'Berhasil registrasi! Silakan Login.', {
+      type: 'info',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     // arahkan ke halaman request otp
     await router.push('/login')
   } catch (error) {
-    alert(error.message || 'Terjadi kesalahan saat registrasi.')
+    toast(error.message || 'Terjadi kesalahan saat registrasi.', {
+      type: 'error',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     // console.error('Terjadi kesalahan saat registrasi:', error)
   } finally {
     loading.value = false

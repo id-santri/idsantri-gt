@@ -2,6 +2,8 @@
 import Api from '@/model/Api'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 const email = ref('')
 const otp_verify = ref('')
@@ -12,7 +14,12 @@ const router = useRouter()
 const isEmailSent = ref(false)
 const handleRequestOtp = async () => {
   if (!email.value) {
-    alert('Silakan masukkan alamat email terlebih dahulu.')
+    toast('Silakan masukkan alamat email terlebih dahulu.', {
+      type: 'error',
+      position: 'top-center',
+      autoClose: 1000,
+      dangerouslyHTMLString: true,
+    })
     return
   }
 
@@ -20,8 +27,19 @@ const handleRequestOtp = async () => {
     const response = await Api.requestOtp(email.value)
     console.log('Response dari API:', response)
     isEmailSent.value = true
+    toast(response?.message || 'OTP berhasil dikirim ke email Anda. silakan periksa email Anda.', {
+      type: 'info',
+      position: 'top-center',
+      autoClose: 3000,
+      dangerouslyHTMLString: true,
+    })
   } catch (error) {
-    alert(error.message || 'Terjadi kesalahan saat mengirim OTP.')
+    toast('Terjadi kesalahan saat mengirim OTP, masukkan email yang sudah terdaftar.', {
+      type: 'error',
+      position: 'top-center',
+      autoClose: 4000,
+      dangerouslyHTMLString: true,
+    })
     // console.error('Terjadi kesalahan saat mengirim OTP:', error)
   } finally {
     // Anda bisa menambahkan logika loading di sini jika diperlukan
@@ -36,17 +54,30 @@ const handleRequestOtp = async () => {
 }
 const handleVerifyOtp = async () => {
   if (!otp_verify.value) {
-    alert('Silakan masukkan kode OTP.')
+    toast('Silakan masukkan kode OTP.', {
+      type: 'error',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     return
   }
   try {
     const response = await Api.verifyOtp(email.value, otp_verify.value)
     console.log('Response dari API:', response)
+    toast(response?.message || 'Selamat datang di Aplikasi Guru Tugas!', {
+      type: 'info',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     // Jika verifikasi berhasil, lanjutkan ke proses login
     // Anda bisa menambahkan logika untuk menyimpan token atau data login di sini
     router.push('/dashboard')
   } catch (error) {
-    alert(error.message || 'Terjadi kesalahan saat memverifikasi OTP.')
+    toast(error.message || 'Terjadi kesalahan saat memverifikasi OTP.', {
+      type: 'error',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     // console.error('Terjadi kesalahan saat memverifikasi OTP:', error)
   } finally {
     // Anda bisa menambahkan logika loading di sini jika diperlukan
