@@ -16,7 +16,7 @@ const currentMonth = computed(() => {
 
 const data = dataGuruTugas()
 
-// State reaktif untuk menampung data pilihan
+
 // const selectedOption = ref('')
 
 // Contoh dataset dinamis yang biasa Anda gunakan
