@@ -14,7 +14,17 @@ onMounted(() => {
 })
 const handleLogout = () => {
   // Menghapus token dari localStorage
-  localStorage.removeItem('token')
+  // try {
+  //   const response = await Api.logout()
+  //   console.log('Response dari API:', response)
+  // } catch (error) {
+  //   console.error('Terjadi kesalahan saat logout:', error)
+  // } finally {
+  //   localStorage.removeItem('gt-app-token')
+  // }
+
+  // Panggil API logout jika diperlukan
+  localStorage.removeItem('gt-app-token')
 
   // Kembalikan ke halaman login
   router.push('/login')
