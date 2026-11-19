@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, computed } from 'vue'
 
+// Menggunakan reactive untuk membuat state reaktif
 // State reaktif dengan nilai awal sesuai contoh Anda
 const formData = reactive({
   wali_kelas: [
