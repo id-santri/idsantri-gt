@@ -18,6 +18,10 @@ class Api {
   #removeToken() {
     localStorage.removeItem(this.#TOKEN_KEY)
   }
+  isLoggedIn() {
+    const token = this.#getToken()
+    return !!token
+  }
 
   logout() {
     this.#removeToken()

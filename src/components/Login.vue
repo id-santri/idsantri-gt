@@ -1,4 +1,5 @@
 <script setup>
+import Api from '@/model/Api'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -9,46 +10,71 @@ const router = useRouter()
 
 // State penanda status pengiriman email
 const isEmailSent = ref(false)
+const handleRequestOtp = async () => {
+  if (!email.value) {
+    alert('Silakan masukkan alamat email terlebih dahulu.')
+    return
+  }
+
+  try {
+    const response = await Api.requestOtp(email.value)
+    console.log('Response dari API:', response)
+    isEmailSent.value = true
+  } catch (error) {
+    alert(error.message || 'Terjadi kesalahan saat mengirim OTP.')
+    // console.error('Terjadi kesalahan saat mengirim OTP:', error)
+  } finally {
+    // Anda bisa menambahkan logika loading di sini jika diperlukan
+  }
+
+  // console.log('Mengirim OTP ke email:', email.value)
+  // Tambahkan pemanggilan API kirim OTP di sini...
+
+  // Ubah state menjadi true agar form berganti menampilkan input OTP
+
+  // TAHAP 2: Jika email sudah dikirim (Proses verifikasi OTP)
+}
+const handleVerifyOtp = async () => {
+  if (!otp_verify.value) {
+    alert('Silakan masukkan kode OTP.')
+    return
+  }
+  try {
+    const response = await Api.verifyOtp(email.value, otp_verify.value)
+    console.log('Response dari API:', response)
+    // Jika verifikasi berhasil, lanjutkan ke proses login
+    // Anda bisa menambahkan logika untuk menyimpan token atau data login di sini
+    router.push('/dashboard')
+  } catch (error) {
+    alert(error.message || 'Terjadi kesalahan saat memverifikasi OTP.')
+    // console.error('Terjadi kesalahan saat memverifikasi OTP:', error)
+  } finally {
+    // Anda bisa menambahkan logika loading di sini jika diperlukan
+  }
+
+  // console.log('Verifikasi OTP:', otp_verify.value)
+  // Tambahkan pemanggilan API verifikasi OTP di sini...
+
+  // 1. Buat dan simpan token setelah OTP valid
+  // const dummyToken = 'dummy-token-' + btoa(email.value) + '-' + Date.now()
+  // localStorage.setItem('token', dummyToken)
+
+  // 2. Simpan data login lengkap ke Local Storage
+  // const loginData = {
+  //   email: email.value,
+  //   otp_verify: otp_verify.value,
+  //   rememberMe: rememberMe.value,
+  // }
+
+  // 3. Redirect ke halaman dashboard
+}
 
 const handleLogin = async () => {
   // TAHAP 1: Jika email belum dikirim
   if (!isEmailSent.value) {
-    if (!email.value) {
-      alert('Silakan masukkan alamat email terlebih dahulu.')
-      return
-    }
-
-    console.log('Mengirim OTP ke email:', email.value)
-    // Tambahkan pemanggilan API kirim OTP di sini...
-
-    // Ubah state menjadi true agar form berganti menampilkan input OTP
-    isEmailSent.value = true
-
-    // TAHAP 2: Jika email sudah dikirim (Proses verifikasi OTP)
+    await handleRequestOtp()
   } else {
-    if (!otp_verify.value) {
-      alert('Silakan masukkan kode OTP.')
-      return
-    }
-
-    console.log('Verifikasi OTP:', otp_verify.value)
-    // Tambahkan pemanggilan API verifikasi OTP di sini...
-
-    // 1. Buat dan simpan token setelah OTP valid
-    const dummyToken = 'dummy-token-' + btoa(email.value) + '-' + Date.now()
-    localStorage.setItem('token', dummyToken)
-
-    // 2. Simpan data login lengkap ke Local Storage
-    const loginData = {
-      email: email.value,
-      otp_verify: otp_verify.value,
-      rememberMe: rememberMe.value,
-    }
-    console.log('Data Login:', loginData)
-    localStorage.setItem('data_login', JSON.stringify(loginData))
-
-    // 3. Redirect ke halaman dashboard
-    router.push('/dashboard')
+    await handleVerifyOtp()
   }
 }
 </script>
