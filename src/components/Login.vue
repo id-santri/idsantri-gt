@@ -1,5 +1,6 @@
 <script setup>
 import Auth from '@/model/Auth'
+import Profile from '@/model/Profile'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
@@ -64,6 +65,14 @@ const handleVerifyOtp = async () => {
   try {
     const response = await Auth.verifyOtp(email.value, otp_verify.value)
     console.log('Response dari API:', response)
+
+    // 2. Panggil API untuk mengambil data profile
+    const profileResponse = await Profile.get() // Sesuaikan nama fungsi API profile Anda
+    console.log('Data Profile:', profileResponse)
+
+    // Simpan objek data profil ke localStorage (wajib diubah ke string JSON)
+    localStorage.setItem('profile', JSON.stringify(profileResponse.data))
+
     toast(response?.message || 'Selamat datang di Aplikasi Guru Tugas!', {
       type: 'info',
       position: 'top-center',

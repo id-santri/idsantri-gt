@@ -1,5 +1,5 @@
 <script setup>
-import Api from '@/model/Api'
+import Auth from '@/model/Auth'
 import { ref, onMounted } from 'vue'
 // import ThemeToggle from './ThemeToggle.vue'
 import { useThemeStore } from '../stores/data'
@@ -19,8 +19,8 @@ const handleLogout = async () => {
 
   // Panggil API logout jika diperlukan
   try {
-    const response = await Api.logout()
-    console.log('Response dari API logout:', response)
+    const response = await Auth.logout()
+    console.log('Response dari API logout: ', response)
   } catch (error) {
     console.error('Terjadi kesalahan saat logout:', error)
   }
