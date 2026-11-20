@@ -1,30 +1,23 @@
 import config from '../config'
 class Api {
   #BASE_URL = config.BASE_API + config.END_API
+  #TOKEN_KEY = 'gt-app-token'
 
-  get BASE_URL() {
-    return this.#BASE_URL
+  _saveToken(token) {
+    localStorage.setItem(this.#TOKEN_KEY, token)
   }
 
-  #saveToken(token) {
-    localStorage.setItem('token', token)
+  _getToken() {
+    return localStorage.getItem(this.#TOKEN_KEY)
   }
 
-  #getToken() {
-    return localStorage.getItem('token')
+  _removeToken() {
+    localStorage.removeItem(this.#TOKEN_KEY)
   }
 
-  #removeToken() {
-    localStorage.removeItem('token')
-  }
-
-  logout() {
-    this.#removeToken()
-  }
-
-  async #performFetch(endPoint, options = {}) {
+  async _performFetch(endPoint, options = {}) {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const token = this.#getToken()
+    const token = this._getToken()
 
     const finalOptions = {
       ...options,
@@ -38,16 +31,13 @@ class Api {
     let response
     let responseText
     try {
-      response = await fetch(this.BASE_URL + '/' + endPoint, finalOptions)
+      response = await fetch(this.#BASE_URL + '/' + endPoint, finalOptions)
       responseText = await response.text()
     } catch (error) {
-      return {
-        error: true,
-        message:
-          error.name === 'AbortError' ? 'Permintaan dibatalkan' : 'Gagal terhubung ke server',
-        type: 'error',
-        data: null,
-      }
+      throw new Error(
+        error.name === 'AbortError' ? 'Permintaan dibatalkan' : 'Gagal terhubung ke server',
+        { cause: error },
+      )
     }
 
     let responseJson = null
@@ -71,48 +61,6 @@ class Api {
     }
     return responseJson
   }
-
-  async register(gt_id, otp, email) {
-    const response = await this.#performFetch('register', {
-      method: 'POST',
-      body: JSON.stringify({ gt_id, otp, email }),
-    })
-    return response
-  }
-
-  async requestOtp(email) {
-    const response = await this.#performFetch('request-otp', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-    })
-    return response
-  }
-
-  async verifyOtp(email, otp) {
-    const response = await this.#performFetch('verify-otp', {
-      method: 'POST',
-      body: JSON.stringify({ email, otp }),
-    })
-    if (!response.error && response.data?.token) {
-      this.#saveToken(response.data.token)
-    }
-    return response
-  }
-
-  async getProfile() {
-    const response = await this.#performFetch('me', {
-      method: 'GET',
-    })
-    return response
-  }
-
-  async updateProfile(nomor_telepon) {
-    const response = await this.#performFetch('me', {
-      method: 'POST',
-      body: JSON.stringify({ nomor_telepon }),
-    })
-    return response
-  }
 }
 
-export default new Api()
+export default Api
