@@ -1,4 +1,5 @@
 <script setup>
+import Api from '@/model/Api'
 import { ref, onMounted } from 'vue'
 // import ThemeToggle from './ThemeToggle.vue'
 import { useThemeStore } from '../stores/data'
@@ -14,17 +15,15 @@ onMounted(() => {
 })
 const handleLogout = () => {
   // Menghapus token dari localStorage
-  // try {
-  //   const response = await Api.logout()
-  //   console.log('Response dari API:', response)
-  // } catch (error) {
-  //   console.error('Terjadi kesalahan saat logout:', error)
-  // } finally {
-  //   localStorage.removeItem('gt-app-token')
-  // }
+  // localStorage.removeItem('gt-app-token')
 
   // Panggil API logout jika diperlukan
-  localStorage.removeItem('gt-app-token')
+  try {
+    const response = Api.logout()
+    console.log('Response dari API logout:', response)
+  } catch (error) {
+    console.error('Terjadi kesalahan saat logout:', error)
+  }
 
   // Kembalikan ke halaman login
   router.push('/login')
