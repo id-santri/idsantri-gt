@@ -10,7 +10,6 @@ const umurGuru = ref(data.detailData.umur || '')
 const tahunAjaranGuru = ref(data.detailData.th_ajaran_h || '')
 const tempatTugasGuru = ref(data.detailData.pjgt_nama_lembaga || '')
 const alamatGuru = ref(data.detailData.alamat_pendek || '')
-const statusGuru = ref(data.detailData.status || '')
 const qrSize = ref(200)
 
 // Menggunakan optional chaining yang aman untuk mengambil ID guru

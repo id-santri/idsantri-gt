@@ -6,8 +6,10 @@ import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { dataGuruTugas } from '@/stores/data' // 1. Import store Anda
+import { useLaporanStore } from '@/stores/data' // 1. Import store Anda
 
 const guruStore = dataGuruTugas() // 2. Inisialisasi store
+const laporanStore = useLaporanStore() // 2. Inisialisasi store
 
 const email = ref('')
 const otp_verify = ref('')
@@ -73,6 +75,9 @@ const handleVerifyOtp = async () => {
     await guruStore.getProfileGuru()
 
     console.log('Data Profile dari Pinia:', guruStore.detailData)
+
+    await laporanStore.getTotalLaporan() // Panggil action untuk mengambil daftar laporan
+    console.log('Daftar Laporan dari Pinia:', laporanStore.daftarLaporan)
 
     // 2. Panggil API untuk mengambil data profile
     // const profileResponse = await Profile.get() // Sesuaikan nama fungsi API profile Anda

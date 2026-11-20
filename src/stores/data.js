@@ -2,21 +2,25 @@ import { defineStore } from 'pinia'
 
 import { ref, computed } from 'vue'
 import Profile from '@/model/Profile.js'
+import Laporan from '@/model/Laporan.js'
 
 // // KODE DATA FORM LAMA
 
 export const useLaporanStore = defineStore('laporan', () => {
-  const daftarLaporan = ref([
-    { id: 1, judul: 'Laporan Bulan Januari', penulis: 'Khoirul Anam' },
-    { id: 2, judul: 'Laporan Bulan Februari', penulis: 'Khoirul Anam' },
-    { id: 3, judul: 'Laporan Bulan Maret', penulis: 'Khoirul Anam' },
-    { id: 4, judul: 'Laporan Bulan April', penulis: 'Khoirul Anam' },
-    { id: 5, judul: 'Laporan Bulan Mei', penulis: 'Khoirul Anam' },
-    { id: 6, judul: 'Laporan Bulan Juni', penulis: 'Khoirul Anam' },
-    { id: 7, judul: 'Laporan Bulan Juli', penulis: 'Khoirul Anam' },
-    { id: 8, judul: 'Laporan Bulan Agustus', penulis: 'Khoirul Anam' },
-    { id: 9, judul: 'Laporan Bulan September', penulis: 'Khoirul Anam' },
-  ])
+  const daftarLaporan = ref(JSON.parse(localStorage.getItem('daftarLaporan')) || [])
+
+  const getTotalLaporan = async () => {
+    try {
+      const response = await Profile.get() // Sesuaikan nama fungsi API profile Anda
+      const dataApi = response.data?.laporan || [] // Sesuaikan dengan struktur JSON backend Anda
+      daftarLaporan.value = dataApi
+      // Simpan ke localStorage agar data tidak hilang saat halaman di-refresh (F5)
+      localStorage.setItem('daftarLaporan', JSON.stringify(dataApi))
+      console.log('Daftar Laporan berhasil diperbarui:', dataApi)
+    } catch (error) {
+      console.error('Error fetching laporan data:', error)
+    }
+  }
 
   // Hitung total panjang array agar bisa dipanggil di Dashboard
   const totalLaporan = computed(() => daftarLaporan.value.length)
@@ -27,7 +31,7 @@ export const useLaporanStore = defineStore('laporan', () => {
     daftarLaporan.value.push({ id: idBaru, judul, penulis })
   }
 
-  return { daftarLaporan, totalLaporan, tambahLaporanBaru }
+  return { daftarLaporan, totalLaporan, tambahLaporanBaru, getTotalLaporan }
 })
 
 // // KODE DATA FORM BARU
