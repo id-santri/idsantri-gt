@@ -1,5 +1,5 @@
 <script setup>
-import Api from '@/model/Api'
+import Auth from '@/model/Auth'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
@@ -32,7 +32,7 @@ const handleRegister = async () => {
   try {
     loading.value = true
     const response = await delay(0) // Tambahkan delay 1 detik
-    // const response = await Api.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
+    // const response = await Auth.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
 
     // console.log('Response dari API:', response)
     // alert(response?.message || 'Registrasi berhasil! Silakan Login.')

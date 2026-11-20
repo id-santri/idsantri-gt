@@ -1,5 +1,5 @@
 <script setup>
-import Api from '@/model/Api'
+import Auth from '@/model/Auth'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
@@ -24,7 +24,7 @@ const handleRequestOtp = async () => {
   }
 
   try {
-    const response = await Api.requestOtp(email.value)
+    const response = await Auth.requestOtp(email.value)
     console.log('Response dari API:', response)
     isEmailSent.value = true
     toast(response?.message || 'OTP berhasil dikirim ke email Anda. silakan periksa email Anda.', {
@@ -62,7 +62,7 @@ const handleVerifyOtp = async () => {
     return
   }
   try {
-    const response = await Api.verifyOtp(email.value, otp_verify.value)
+    const response = await Auth.verifyOtp(email.value, otp_verify.value)
     console.log('Response dari API:', response)
     toast(response?.message || 'Selamat datang di Aplikasi Guru Tugas!', {
       type: 'info',

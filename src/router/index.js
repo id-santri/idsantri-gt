@@ -10,7 +10,7 @@ import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import HalamanUtama from '@/layout/HalamanUtama.vue'
 import HalamanLogin from '@/layout/HalamanLogin.vue'
-import Api from '@/model/Api.js'
+import Auth from '@/model/Auth.js'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -83,7 +83,7 @@ router.beforeEach((to) => {
   }
 
   // Mengambil token (contoh menggunakan localStorage, silakan sesuaikan dengan state management Anda)
-  const token = Api.isLoggedIn()
+  const token = Auth.isLoggedIn()
 
   // jika route tujuan adalah /login atau /register
   if (to.fullPath === '/login' || to.fullPath === '/register') {
