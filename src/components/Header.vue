@@ -13,13 +13,13 @@ onMounted(() => {
   // Jalankan inisialisasi tema saat komponen dimuat agar warna langsung diterapkan
   themeStore.initTheme()
 })
-const handleLogout = () => {
+const handleLogout = async () => {
   // Menghapus token dari localStorage
   // localStorage.removeItem('gt-app-token')
 
   // Panggil API logout jika diperlukan
   try {
-    const response = Api.logout()
+    const response = await Api.logout()
     console.log('Response dari API logout:', response)
   } catch (error) {
     console.error('Terjadi kesalahan saat logout:', error)
