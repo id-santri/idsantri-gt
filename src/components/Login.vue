@@ -5,6 +5,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { dataGuruTugas } from '@/stores/data' // 1. Import store Anda
+
+const guruStore = dataGuruTugas() // 2. Inisialisasi store
 
 const email = ref('')
 const otp_verify = ref('')
@@ -66,12 +69,17 @@ const handleVerifyOtp = async () => {
     const response = await Auth.verifyOtp(email.value, otp_verify.value)
     console.log('Response dari API:', response)
 
+    // 3. Panggil action Pinia untuk mengambil API profile & menyimpannya ke detailData
+    await guruStore.getProfileGuru()
+
+    console.log('Data Profile dari Pinia:', guruStore.detailData)
+
     // 2. Panggil API untuk mengambil data profile
-    const profileResponse = await Profile.get() // Sesuaikan nama fungsi API profile Anda
-    console.log('Data Profile:', profileResponse)
+    // const profileResponse = await Profile.get() // Sesuaikan nama fungsi API profile Anda
+    // console.log('Data Profile:', profileResponse)
 
     // Simpan objek data profil ke localStorage (wajib diubah ke string JSON)
-    localStorage.setItem('profile', JSON.stringify(profileResponse.data))
+    // localStorage.setItem('profile', JSON.stringify(profileResponse.data))
 
     toast(response?.message || 'Selamat datang di Aplikasi Guru Tugas!', {
       type: 'info',

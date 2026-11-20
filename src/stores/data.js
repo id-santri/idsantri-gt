@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 import { ref, computed } from 'vue'
+import Profile from '@/model/Profile.js'
 
 // // KODE DATA FORM LAMA
 
@@ -82,25 +83,9 @@ export const useDataStore = defineStore('data', () => {
   }
 })
 export const dataGuruTugas = defineStore('guru', () => {
-  const detailData = ref({
-    id: 1448001,
-    nama: 'Khoirul Anam',
-    umur: 25,
-    alamat: 'Jl. Cokro no. 1234',
-    tahun_ajaran: 2026,
-    tempat_tugas: 'MDS. Nurul Hidayah',
-    nama_pjgt: 'KH. Muhammad Karom',
-    status: true,
-    bulan: '1',
-    // wali_kelas: [
-    //   { tingkat: 'Ibtidaiyah', kelas: '1' },
-    //   { tingkat: 'Tsanawiyah', kelas: '2' },
-    // ],
-    // guru_fan: [
-    //   { tingkat: 'Ibtidaiyah', kelas: '1' },
-    //   { tingkat: 'Tsanawiyah', kelas: '2' },
-    // ],
-  })
+  // 1. Ubah nilai awal menjadi objek kosong atau ambil dari localStorage jika ada (agar aman saat refresh)
+  const detailData = ref(JSON.parse(localStorage.getItem('profile')) || {})
+
   const bulanHijri = [
     {
       bulan: 'Muharram',
@@ -111,10 +96,23 @@ export const dataGuruTugas = defineStore('guru', () => {
       no: 2,
     },
   ]
-  const waliKelas = computed(() => detailData.value.wali_kelas)
-  const guruFan = computed(() => detailData.value.guru_fan)
+  // Tambahkan optional chaining (?.) agar tidak error saat detailData masih kosong
+  const waliKelas = computed(() => detailData.value?.wali_kelas || [])
+  const guruFan = computed(() => detailData.value?.guru_fan || [])
 
-  return { detailData, waliKelas, guruFan, bulanHijri }
+  // 2. Buat fungsi (action) untuk mengambil data dari API dan menyimpannya ke detailData
+  const getProfileGuru = async () => {
+    const response = await Profile.get() // Sesuaikan nama fungsi API profile Anda
+    const dataApi = response.data?.gt || response.data?.data?.gt || {} // Sesuaikan dengan struktur JSON backend Anda
+
+    // Simpan ke state Pinia
+    detailData.value = dataApi
+
+    // Opsional: Simpan juga ke localStorage agar data tidak hilang saat halaman di-refresh (F5)
+    localStorage.setItem('profile', JSON.stringify(dataApi))
+  }
+
+  return { detailData, waliKelas, guruFan, bulanHijri, getProfileGuru }
 })
 
 export const useThemeStore = defineStore('theme', () => {

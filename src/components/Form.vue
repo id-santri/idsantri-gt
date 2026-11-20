@@ -60,7 +60,6 @@ function onSubmit() {
   console.log(json)
 }
 
-
 // const selectedOption = ref('')
 
 // Contoh dataset dinamis yang biasa Anda gunakan
@@ -136,8 +135,6 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
         </div>
       </form> -->
 
-        
-      
       <!-- <h1 class="text-[16px] font-normal leading-tight text-[#244638]">Form Laporan GT</h1> -->
       <form class="mt-3 space-y-2.5" @submit.prevent="onSubmit">
         <div class="card p-2.5 bg-base-200">
@@ -376,7 +373,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           >
 
           <button
-            type="submit"
+            type="button"
             class="mt-4 w-full rounded-lg bg-primary py-3 text-[11px] font-bold text-accent-content"
           >
             Simpan Laporan
