@@ -51,7 +51,7 @@ const handleImageUpload = (event) => {
                   Pondok Pesantren Syaichona Moh. Cholil Bangkalan
                 </p>
               </div>
-
+              <!-- // STATUS GURU
               <button
                 v-if="statusGuru == true"
                 class="btn-warning py-1 px-3 bg-yellow-500 rounded-[20px] flex items-center justify-center text-green-900"
@@ -63,7 +63,7 @@ const handleImageUpload = (event) => {
                 class="btn-error py-1.5 px-3 bg-red-700 rounded-[20px] flex items-center justify-center text-white"
               >
                 <p class="text-[10px] font-bold">Tidak Aktif</p>
-              </button>
+              </button> -->
             </div>
 
             <!-- Bagian Tengah / Informasi Profil -->

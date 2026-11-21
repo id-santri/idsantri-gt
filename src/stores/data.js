@@ -25,10 +25,32 @@ export const useLaporanStore = defineStore('laporan', () => {
   // Hitung total panjang array agar bisa dipanggil di Dashboard
   const totalLaporan = computed(() => daftarLaporan.value.length)
 
-  // Aksi untuk menambah data dari halaman form
-  const tambahLaporanBaru = (judul, penulis) => {
-    const idBaru = daftarLaporan.value.length + 1
-    daftarLaporan.value.push({ id: idBaru, judul, penulis })
+  // Pastikan Anda sudah mengimpor service API laporan di bagian atas file, misalnya:
+  // import Laporan from '@/services/Laporan'
+
+  // Ubah fungsi tambahLaporanBaru agar memanggil API backend untuk menyimpan data laporan baru, lalu memperbarui state Pinia dan localStorage.
+  const tambahLaporanBaru = async (payloadLaporan) => {
+    try {
+      // 1. Kirim data form ke API backend (sesuaikan nama service & method POST Anda)
+      const response = await Laporan.create(payloadLaporan)
+
+      // 2. Refresh daftar laporan dari server agar formatnya 100% sinkron
+      await getTotalLaporan()
+
+      // 2. Ambil data laporan baru dari response API (sesuaikan struktur JSON backend Anda)
+      const laporanTersimpan = response.data?.laporan || response.data || payloadLaporan
+
+      // 3. Masukkan ke state Pinia (atau panggil ulang getTotalLaporan() agar sinkron dengan server)
+      daftarLaporan.value.push(laporanTersimpan)
+
+      // 4. Perbarui localStorage agar data tetap ada saat halaman di-refresh
+      localStorage.setItem('daftarLaporan', JSON.stringify(daftarLaporan.value))
+
+      return response
+    } catch (error) {
+      console.error('Gagal mengirim laporan ke API:', error)
+      throw error // Lempar error agar bisa ditangkap oleh toast/alert di halaman form
+    }
   }
 
   return { daftarLaporan, totalLaporan, tambahLaporanBaru, getTotalLaporan }

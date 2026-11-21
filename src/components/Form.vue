@@ -3,6 +3,10 @@
 import { ref, reactive } from 'vue'
 import { dataGuruTugas } from '../stores/data'
 import { computed } from 'vue'
+import { useLaporanStore } from '@/stores/data'
+import { toast } from 'vue3-toastify'
+
+const laporanStore = useLaporanStore()
 
 // Mengambil bulan terkini secara otomatis dengan format YYYY-MM
 const currentMonth = computed(() => {
@@ -25,70 +29,62 @@ console.log(bulanHijri.value)
 console.log(detailData.value)
 
 const laporan = reactive({
-  gt_id: '1',
-  bulan_hijri: '01',
+  config_id: '1447-1448-03',
   wali_kelas: [
     {
-      tingkat: 'Tsanawiyah',
-      kelas: '123',
+      tingkat: 'Ibtidaiyah',
+      kelas: '6',
     },
   ],
   guru_fan: [
     {
+      tingkat: 'Tsanawiyah',
+      kelas: '1',
+    },
+    {
       tingkat: 'Ibtidaiyah',
-      kelas: '123',
+      kelas: '4',
     },
   ],
-  jenis_kelamin_murid: 'Laki-Laki',
-  absen_sakit: '1',
-  absen_pulang: '1',
-  absen_lainnya: '1',
-  kegiatan_quran: true,
-  kegiatan_kitab: true,
-  kegiatan_imam_jumat: true,
-  imam_maktubah: true,
-  hubungan_ke_pjgt: 'baik',
-  hubungan_ke_guru: 'baik',
-  tugas_lainnya: 'text',
-  usul_saran: 'text',
-  bisyarah_nominal: '123',
-  bisyarah_waktu: true,
+  sex_murid: 'Perempuan',
+  absen: [
+    {
+      sakit: 1,
+    },
+  ],
+  kegiatan: [
+    {
+      quran: 'ya',
+      kitab: 'tidak',
+    },
+  ],
+  hubungan: [
+    {
+      guru: 'baik',
+      pjgt: 'baik',
+    },
+  ],
+  bisyarah: [
+    {
+      nominal: 1000,
+      tepat_waktu: true,
+    },
+  ],
+  usul_saran: 'Kondisi kegiatan belajar mengajar berjalan kondusif.',
 })
 
-function onSubmit() {
-  const json = JSON.parse(JSON.stringify(laporan.value))
-  console.log(json)
+const handleSubmitLaporan = async () => {
+  try {
+    // Kirim data form ke action Pinia
+    await laporanStore.tambahLaporanBaru(laporan.value)
+
+    // Tampilkan notifikasi sukses & reset form
+    toast('Laporan berhasil dikirim!', { type: 'success' })
+    laporan.value = { judul: '', penulis: '' }
+  } catch (error) {
+    toast(error.message || 'Gagal mengirim laporan.', { type: 'error' })
+  }
 }
-
-// const selectedOption = ref('')
-
-// Contoh dataset dinamis yang biasa Anda gunakan
-// const daftarTugas = ref([
-//   { id: 1, nama: 'Desain Layout Flowbite' },
-//   { id: 2, nama: 'Integrasi API Pinia Store' },
-//   { id: 3, nama: 'Perbaikan Validasi Form' },
-// ])
-
-// // LAMA
-// import { ref } from 'vue'
-// import { useRouter } from 'vue-router'
-// import { useLaporanStore } from '../stores/data'
-
-// const router = useRouter()
-// const store = useLaporanStore()
-
-// const judulInput = ref('')
-// const penulisInput = ref('Khoirul Anam') // Nilai bawaan sesuai data gambar sebelumnya
-
-// const simpanData = () => {
-//   if (judulInput.value.trim() === '') return alert('Form tidak boleh ada yang kosong!')
-
-//   // Masukkan data baru ke dalam store
-//   store.tambahLaporanBaru(judulInput.value, penulisInput.value)
-
-//   // Alihkan navigasi kembali ke halaman list rekap
-//   router.push('/laporan')
-// }
 
 const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 </script>
@@ -99,44 +95,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
       <h2 class="text-lg font-bold text-[#1e3d30] mb-4">Tambah Laporan Baru</h2>
       <!-- Form Baru -->
 
-      <!-- Form Lama -->
-      <!-- <form @submit.prevent="simpanData" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1">Judul Laporan</label>
-          <input
-            v-model="judulInput"
-            type="text"
-            placeholder="Contoh: Laporan Bulan Oktober"
-            class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3d30]"
-          />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1">Nama Penulis</label>
-          <input
-            v-model="penulisInput"
-            type="text"
-            class="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3d30]"
-          />
-        </div>
-        <div class="flex gap-2 justify-end pt-2">
-          <button
-            type="button"
-            @click="router.push('/form')"
-            class="px-4 py-2 text-xs font-medium text-gray-500 bg-gray-100 rounded-lg hover:bg-gray-200"
-          >
-            Batal
-          </button>
-          <button
-            type="submit"
-            class="px-4 py-2 text-xs font-semibold text-white bg-[#1e3d30] rounded-lg hover:bg-[#152a21]"
-          >
-            Simpan
-          </button>
-        </div>
-      </form> -->
-
-      <!-- <h1 class="text-[16px] font-normal leading-tight text-[#244638]">Form Laporan GT</h1> -->
-      <form class="mt-3 space-y-2.5" @submit.prevent="onSubmit">
+      <form class="mt-3 space-y-2.5" @submit.prevent="handleSubmitLaporan">
         <div class="card p-2.5 bg-base-200">
           <h2 class="mt-1 mb-3 text-15px] font-extrabold uppercase tracking-wide text-primary">
             Buat Laporan Baru
@@ -170,15 +129,15 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
             /></label>
             <label
               ><span class="field-label my-4">Nama PJGT</span
-              ><input v-model="detailData.namaPjgt" type="text" class="field bg-base-100"
+              ><input v-model="detailData.pjgt_nama" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Nama Madrasah/Ponpes</span
-              ><input v-model="detailData.tempatTugas" type="text" class="field bg-base-100"
+              ><input v-model="detailData.pjgt_nama_lembaga" type="text" class="field bg-base-100"
             /></label>
             <label
               ><span class="field-label my-4">Alamat</span
-              ><input v-model="detailData.alamat" type="text" class="field bg-base-100"
+              ><input v-model="detailData.alamat_pendek" type="text" class="field bg-base-100"
             /></label>
           </div>
         </div>
