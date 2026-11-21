@@ -5,6 +5,7 @@ import { dataGuruTugas } from '../stores/data'
 import { computed } from 'vue'
 import { useLaporanStore } from '@/stores/data'
 import { toast } from 'vue3-toastify'
+import FormTingkatKelas from './FormTingkatKelas.vue'
 
 const laporanStore = useLaporanStore()
 
@@ -29,7 +30,7 @@ console.log(bulanHijri.value)
 console.log(detailData.value)
 
 const laporan = reactive({
-  config_id: '1447-1448-03',
+  config_id: '1447-1448-03', // <-- 1. Hapus tanda // (atau isi dinamis dari API config)
   wali_kelas: [
     {
       tingkat: 'Ibtidaiyah',
@@ -64,7 +65,7 @@ const laporan = reactive({
       pjgt: 'baik',
     },
   ],
-  bisyarah: [
+  bisyaroh: [
     {
       nominal: 1000,
       tepat_waktu: true,
@@ -75,12 +76,14 @@ const laporan = reactive({
 
 const handleSubmitLaporan = async () => {
   try {
-    // Kirim data form ke action Pinia
-    await laporanStore.tambahLaporanBaru(laporan.value)
+    // 2. Hapus .value karena laporan menggunakan reactive(), bukan ref()
+    await laporanStore.tambahLaporanBaru(laporan)
+    console.log('Laporan berhasil dikirim:', laporan)
 
-    // Tampilkan notifikasi sukses & reset form
     toast('Laporan berhasil dikirim!', { type: 'success' })
-    laporan.value = { judul: '', penulis: '' }
+
+    // 3. Reset form sesuai struktur reactive (jangan pakai laporan.value = ...)
+    laporan.usul_saran = ''
   } catch (error) {
     toast(error.message || 'Gagal mengirim laporan.', { type: 'error' })
   }
@@ -143,36 +146,13 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
         </div>
 
         <!-- contoh -->
-        <div>
-          <div class="badge badge-xs">Ibtidaiyah 1</div>
-          <button class="btn btn-sm btn-primary">tambahkan jenjang</button>
-        </div>
-
-        <label>
-          Pilih Jenjang
-          <input type="text" class="field bg-base-100" />
-        </label>
-        <label>
-          Pilih Kelas
-          <input type="text" class="field bg-base-100" />
-        </label>
-        <pre> bulan {{ detailData.bulan }}</pre>
-        <select class="select select-accent" v-model="detailData.bulan">
-          <option
-            v-for="bulan in bulanHijri"
-            :key="bulan"
-            :value="bulan.no"
-            @model-update="detailData.bulan = bulan.no"
-          >
-            {{ bulan.bulan }}
-          </option>
-        </select>
 
         <!-- end contoh -->
 
         <div class="card p-2.5 bg-base-200">
           <h2 class="section-title text-primary">Menjadi Wali Kelas</h2>
-          <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
+          <FormTingkatKelas />
+          <!-- <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
             <div v-for="kelas in laporan.wali_kelas" :key="kelas" class="flex gap-1 flex-col">
               <label>
@@ -189,11 +169,12 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
                 </select>
               </label>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="card p-2.5 bg-base-200">
           <h2 class="section-title text-primary">Menjadi Guru Fun</h2>
-          <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
+          <FormTingkatKelas />
+          <!-- <div v-for="level in levels" :key="level" class="mb-2 last:mb-0">
             <div class="small-label">{{ level }}</div>
             <div v-for="kelas in laporan.guru_fan" :key="kelas" class="flex gap-1 flex-col">
               <fieldset class="fieldset">
@@ -210,7 +191,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
                 </select>
               </fieldset>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="card p-2.5 bg-base-200">
           <h2 class="section-title text-primary">Data Murid</h2>
@@ -332,7 +313,7 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
           >
 
           <button
-            type="button"
+            type="submit"
             class="mt-4 w-full rounded-lg bg-primary py-3 text-[11px] font-bold text-accent-content"
           >
             Simpan Laporan
