@@ -7,10 +7,10 @@ const data = dataGuruTugas()
 const idGuru = ref(data.detailData.id || '')
 const namaGuru = ref(data.detailData.nama || '')
 const umurGuru = ref(data.detailData.umur || '')
-const tahunAjaranGuru = ref(data.detailData.tahun_ajaran || '')
-const tempatTugasGuru = ref(data.detailData.tempat_tugas || '')
-const alamatGuru = ref(data.detailData.alamat || '')
-const statusGuru = ref(data.detailData.status || '')
+const tahunAjaranGuru = ref(data.detailData.th_ajaran_h || '')
+const tempatTugasGuru = ref(data.detailData.pjgt_nama_lembaga || '')
+const alamatGuru = ref(data.detailData.alamat_pendek || '')
+const img = ref(data.detailData.image_url || '')
 const qrSize = ref(200)
 
 // Menggunakan optional chaining yang aman untuk mengambil ID guru
@@ -52,7 +52,7 @@ const handleImageUpload = (event) => {
                   Pondok Pesantren Syaichona Moh. Cholil Bangkalan
                 </p>
               </div>
-
+              <!-- // STATUS GURU
               <button
                 v-if="statusGuru == true"
                 class="btn-warning py-1 px-3 bg-yellow-500 rounded-[20px] flex items-center justify-center text-green-900"
@@ -64,7 +64,7 @@ const handleImageUpload = (event) => {
                 class="btn-error py-1.5 px-3 bg-red-700 rounded-[20px] flex items-center justify-center text-white"
               >
                 <p class="text-[10px] font-bold">Tidak Aktif</p>
-              </button>
+              </button> -->
             </div>
 
             <!-- Bagian Tengah / Informasi Profil -->
@@ -75,7 +75,7 @@ const handleImageUpload = (event) => {
               >
                 <!-- Binding source gambar ke variable reactive avatarUrl -->
                 <img
-                  src="/src/assets/me.jpg"
+                  :src="img ? img : '/src/assets/default.png'"
                   alt="Foto Profil"
                   class="w-full h-full object-cover"
                 />
@@ -84,88 +84,48 @@ const handleImageUpload = (event) => {
               <!-- Detail Teks -->
               <div class="flex-1 min-w-0">
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                  <p class="text-[14px] opacity-60 mt-1 font-mono">Id</p>
-                  <p class="text-[14px] opacity-60 mt-1 font-mono">:</p>
-                  <p class="text-[14px] opacity-60 mt-1 font-mono">
+                  <p class="text-[14px] mt-1 font-mono">Id</p>
+                  <p class="text-[14px] mt-1 font-mono">:</p>
+                  <p class="text-[14px] mt-1 font-mono">
                     {{ idGuru }}
                   </p>
                 </div>
                 <div
                   class="grid grid-cols-[80px_12px_1fr] items-baseline font-medium tracking-wide"
                 >
-                  <p class="text-[14px] opacity-60 mt-1 font-mono">Nama</p>
-                  <p class="text-[14px] opacity-60 mt-1 font-mono">:</p>
-                  <h3 class="text-[14px] font-bold opacity-100 truncate leading-tight font-mono">
+                  <p class="text-[14px] mt-1 font-mono">Nama</p>
+                  <p class="text-[14px] mt-1 font-mono">:</p>
+                  <p class="text-[14px] mt-1 font-mono">
                     {{ namaGuru }}
-                  </h3>
+                  </p>
                 </div>
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    Umur
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    :
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">Umur</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">:</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">
                     {{ umurGuru }}
                   </p>
                 </div>
 
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    Tahun Ajaran
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    :
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">Tahun Ajaran</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">:</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">
                     {{ tahunAjaranGuru }}
                   </p>
                 </div>
 
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    Tempat Tugas
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    :
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">Tempat Tugas</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">:</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">
                     {{ tempatTugasGuru }}
                   </p>
                 </div>
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    Alamat
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
-                    :
-                  </p>
-                  <p
-                    class="text-[14px] opacity-60 mt-1 text-[clamp(6px,2cqw,11px)] opacity-75 font-mono"
-                  >
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">Alamat</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">:</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">
                     {{ alamatGuru }}
                   </p>
                 </div>

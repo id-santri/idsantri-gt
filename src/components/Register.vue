@@ -1,14 +1,26 @@
 <script setup>
+import Auth from '@/model/Auth'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 const id_gt = ref('')
 const otp_request = ref('')
 const email = ref('')
 const termsAccepted = ref(false)
+const loading = ref(false)
+const router = useRouter()
 
-const handleRegister = () => {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+const handleRegister = async () => {
   if (!termsAccepted.value) {
-    alert('Anda harus menyetujui Syarat dan Ketentuan.')
+    toast('Anda harus menyetujui Syarat dan Ketentuan.', {
+      type: 'error',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
     return
   }
   // 1. Bungkus data menjadi satu objek
@@ -17,12 +29,37 @@ const handleRegister = () => {
     otp: otp_request.value,
     email: email.value,
   }
+  try {
+    loading.value = true
+    const response = await delay(0) // Tambahkan delay 1 detik
+    // const response = await Auth.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
+
+    // console.log('Response dari API:', response)
+    // alert(response?.message || 'Registrasi berhasil! Silakan Login.')
+    toast(response?.message || 'Berhasil registrasi! Silakan Login.', {
+      type: 'info',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
+    // arahkan ke halaman request otp
+    await router.push('/login')
+  } catch (error) {
+    toast(error.message || 'Terjadi kesalahan saat registrasi.', {
+      type: 'error',
+      position: 'top-center',
+      dangerouslyHTMLString: true,
+    })
+    // console.error('Terjadi kesalahan saat registrasi:', error)
+  } finally {
+    loading.value = false
+  }
+
   console.log('Data Registrasi:', dataRegister)
 
   // Simpan ke Local Storage browser
   localStorage.setItem('data_registrasi', JSON.stringify(dataRegister))
 
-  alert('Data berhasil disimpan ke Local Storage!')
+  // alert('Data berhasil disimpan ke Local Storage!')
   // Tambahkan logika API registrasi Anda di sini
 }
 

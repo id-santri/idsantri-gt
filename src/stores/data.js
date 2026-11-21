@@ -1,32 +1,59 @@
 import { defineStore } from 'pinia'
 
 import { ref, computed } from 'vue'
+import Profile from '@/model/Profile.js'
+import Laporan from '@/model/Laporan.js'
 
 // // KODE DATA FORM LAMA
 
 export const useLaporanStore = defineStore('laporan', () => {
-  const daftarLaporan = ref([
-    { id: 1, judul: 'Laporan Bulan Januari', penulis: 'Khoirul Anam' },
-    { id: 2, judul: 'Laporan Bulan Februari', penulis: 'Khoirul Anam' },
-    { id: 3, judul: 'Laporan Bulan Maret', penulis: 'Khoirul Anam' },
-    { id: 4, judul: 'Laporan Bulan April', penulis: 'Khoirul Anam' },
-    { id: 5, judul: 'Laporan Bulan Mei', penulis: 'Khoirul Anam' },
-    { id: 6, judul: 'Laporan Bulan Juni', penulis: 'Khoirul Anam' },
-    { id: 7, judul: 'Laporan Bulan Juli', penulis: 'Khoirul Anam' },
-    { id: 8, judul: 'Laporan Bulan Agustus', penulis: 'Khoirul Anam' },
-    { id: 9, judul: 'Laporan Bulan September', penulis: 'Khoirul Anam' },
-  ])
+  const daftarLaporan = ref(JSON.parse(localStorage.getItem('daftarLaporan')) || [])
+
+  const getTotalLaporan = async () => {
+    try {
+      const response = await Profile.get() // Sesuaikan nama fungsi API profile Anda
+      const dataApi = response.data?.laporan || [] // Sesuaikan dengan struktur JSON backend Anda
+      daftarLaporan.value = dataApi
+      // Simpan ke localStorage agar data tidak hilang saat halaman di-refresh (F5)
+      localStorage.setItem('daftarLaporan', JSON.stringify(dataApi))
+      console.log('Daftar Laporan berhasil diperbarui:', dataApi)
+    } catch (error) {
+      console.error('Error fetching laporan data:', error)
+    }
+  }
 
   // Hitung total panjang array agar bisa dipanggil di Dashboard
   const totalLaporan = computed(() => daftarLaporan.value.length)
 
-  // Aksi untuk menambah data dari halaman form
-  const tambahLaporanBaru = (judul, penulis) => {
-    const idBaru = daftarLaporan.value.length + 1
-    daftarLaporan.value.push({ id: idBaru, judul, penulis })
+  // Pastikan Anda sudah mengimpor service API laporan di bagian atas file, misalnya:
+  // import Laporan from '@/services/Laporan'
+
+  // Ubah fungsi tambahLaporanBaru agar memanggil API backend untuk menyimpan data laporan baru, lalu memperbarui state Pinia dan localStorage.
+  const tambahLaporanBaru = async (payloadLaporan) => {
+    try {
+      // 1. Kirim data form ke API backend (sesuaikan nama service & method POST Anda)
+      const response = await Laporan.create(payloadLaporan)
+
+      // 2. Refresh daftar laporan dari server agar formatnya 100% sinkron
+      await getTotalLaporan()
+
+      // 2. Ambil data laporan baru dari response API (sesuaikan struktur JSON backend Anda)
+      const laporanTersimpan = response.data?.laporan || response.data || payloadLaporan
+
+      // 3. Masukkan ke state Pinia (atau panggil ulang getTotalLaporan() agar sinkron dengan server)
+      daftarLaporan.value.push(laporanTersimpan)
+
+      // 4. Perbarui localStorage agar data tetap ada saat halaman di-refresh
+      localStorage.setItem('daftarLaporan', JSON.stringify(daftarLaporan.value))
+
+      return response
+    } catch (error) {
+      console.error('Gagal mengirim laporan ke API:', error)
+      throw error // Lempar error agar bisa ditangkap oleh toast/alert di halaman form
+    }
   }
 
-  return { daftarLaporan, totalLaporan, tambahLaporanBaru }
+  return { daftarLaporan, totalLaporan, tambahLaporanBaru, getTotalLaporan }
 })
 
 // // KODE DATA FORM BARU
@@ -82,25 +109,9 @@ export const useDataStore = defineStore('data', () => {
   }
 })
 export const dataGuruTugas = defineStore('guru', () => {
-  const detailData = ref({
-    id: 1448001,
-    nama: 'Khoirul Anam',
-    umur: 25,
-    alamat: 'Jl. Cokro no. 1234',
-    tahun_ajaran: 2026,
-    tempat_tugas: 'MDS. Nurul Hidayah',
-    nama_pjgt: 'KH. Muhammad Karom',
-    status: true,
-    bulan: '1',
-    // wali_kelas: [
-    //   { tingkat: 'Ibtidaiyah', kelas: '1' },
-    //   { tingkat: 'Tsanawiyah', kelas: '2' },
-    // ],
-    // guru_fan: [
-    //   { tingkat: 'Ibtidaiyah', kelas: '1' },
-    //   { tingkat: 'Tsanawiyah', kelas: '2' },
-    // ],
-  })
+  // 1. Ubah nilai awal menjadi objek kosong atau ambil dari localStorage jika ada (agar aman saat refresh)
+  const detailData = ref(JSON.parse(localStorage.getItem('profile')) || {})
+
   const bulanHijri = [
     {
       bulan: 'Muharram',
@@ -111,10 +122,23 @@ export const dataGuruTugas = defineStore('guru', () => {
       no: 2,
     },
   ]
-  const waliKelas = computed(() => detailData.value.wali_kelas)
-  const guruFan = computed(() => detailData.value.guru_fan)
+  // Tambahkan optional chaining (?.) agar tidak error saat detailData masih kosong
+  const waliKelas = computed(() => detailData.value?.wali_kelas || [])
+  const guruFan = computed(() => detailData.value?.guru_fan || [])
 
-  return { detailData, waliKelas, guruFan, bulanHijri }
+  // 2. Buat fungsi (action) untuk mengambil data dari API dan menyimpannya ke detailData
+  const getProfileGuru = async () => {
+    const response = await Profile.get() // Sesuaikan nama fungsi API profile Anda
+    const dataApi = response.data?.gt || response.data?.data?.gt || {} // Sesuaikan dengan struktur JSON backend Anda
+
+    // Simpan ke state Pinia
+    detailData.value = dataApi
+
+    // Opsional: Simpan juga ke localStorage agar data tidak hilang saat halaman di-refresh (F5)
+    localStorage.setItem('profile', JSON.stringify(dataApi))
+  }
+
+  return { detailData, waliKelas, guruFan, bulanHijri, getProfileGuru }
 })
 
 export const useThemeStore = defineStore('theme', () => {

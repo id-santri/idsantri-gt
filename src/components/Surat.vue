@@ -1,48 +1,65 @@
 <script setup>
-import { reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 
-// State reaktif dengan nilai awal sesuai contoh Anda
-const formData = reactive({
-  wali_kelas: [
-    { tingkat: 'Ibtidaiyah', kelas: '1' },
-    { tingkat: 'Tsanawiyah', kelas: '2' },
-  ],
-  guru_fan: [
-    { tingkat: 'Ibtidaiyah', kelas: '1' },
-    { tingkat: 'Tsanawiyah', kelas: '2' },
-  ],
+// Data master jenjang dan kelas (Array of Objects seperti di gambar)
+const dataJenjang = [
+  {
+    Idadiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
+  },
+  {
+    Ibtidaiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
+  },
+  {
+    Tsanawiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
+  },
+  {
+    Aliyah: ['Kelas 1', 'Kelas 2', 'Kelas 3'],
+  },
+]
+
+const selectedJenjang = ref('')
+const selectedKelas = ref('')
+const daftarPilihan = ref([])
+
+// 1. Ambil daftar nama jenjang dari setiap object di dalam array
+const listNamaJenjang = computed(() => {
+  return dataJenjang.map((item) => Object.keys(item)[0])
 })
 
-// Fungsi tambah & hapus baris untuk Wali Kelas
-const addWaliKelas = () => {
-  formData.wali_kelas.push({ tingkat: '', kelas: '' })
+// 2. Cari object yang memiliki key sesuai jenjang yang dipilih, lalu ambil array kelasnya
+const opsiKelas = computed(() => {
+  if (!selectedJenjang.value) return []
+
+  const found = dataJenjang.find((item) => Object.keys(item)[0] === selectedJenjang.value)
+  return found ? found[selectedJenjang.value] : []
+})
+
+const handleJenjangChange = () => {
+  selectedKelas.value = ''
 }
 
-const removeWaliKelas = (index) => {
-  formData.wali_kelas.splice(index, 1)
-}
+const tambahJenjang = () => {
+  if (!selectedJenjang.value || !selectedKelas.value) return
 
-// Fungsi tambah & hapus baris untuk Guru Fan
-const addGuruFan = () => {
-  formData.guru_fan.push({ tingkat: '', kelas: '' })
-}
+  const sudahAda = daftarPilihan.value.some(
+    (item) => item.jenjang === selectedJenjang.value && item.kelas === selectedKelas.value,
+  )
 
-const removeGuruFan = (index) => {
-  formData.guru_fan.splice(index, 1)
-}
-
-// Menggunakan computed untuk memantau bentuk data bersih secara real-time
-const formattedOutput = computed(() => {
-  return {
-    wali_kelas: formData.wali_kelas,
-    guru_fan: formData.guru_fan,
+  if (!sudahAda) {
+    daftarPilihan.value.push({
+      // id: Date.now(),
+      jenjang: selectedJenjang.value,
+      kelas: selectedKelas.value,
+    })
   }
-})
 
-// Submit form dan cetak objek murni (non-Proxy) ke console
-const submitForm = () => {
-  const payload = JSON.parse(JSON.stringify(formattedOutput.value))
-  console.log('Hasil Form:', payload)
+  selectedJenjang.value = ''
+  selectedKelas.value = ''
+  console.log('Daftar Pilihan:', daftarPilihan.value) // Debugging: lihat daftar pilihan di console
+}
+
+const hapusPilihan = (id) => {
+  daftarPilihan.value = daftarPilihan.value.filter((item) => item.id !== id)
 }
 </script>
 
@@ -55,105 +72,84 @@ const submitForm = () => {
         <h2 class="text-[clamp(12px,4cqw,24px)] font-bold tracking-wider leading-none">
           Surat Tugas
         </h2>
-        <div class="form-container">
-          <form @submit.prevent="submitForm">
-            <!-- Bagian 1: Wali Kelas -->
-            <div class="section">
-              <h3>Data Wali Kelas</h3>
-              <div
-                v-for="(item, index) in formData.wali_kelas"
-                :key="'wali-' + index"
-                class="row-group"
+        <div class="p-6 bg-base-200 rounded-xl max-w-2xl">
+          <!-- Tombol Header -->
+          <div class="mb-4">
+            <button
+              type="button"
+              @click="tambahJenjang"
+              :disabled="!selectedJenjang || !selectedKelas"
+              class="btn btn-sm bg-[#243b2e] hover:bg-[#1a2b22] text-white border-none rounded-none px-4 normal-case font-normal disabled:opacity-50"
+            >
+              tambahkan jenjang
+            </button>
+          </div>
+
+          <!-- Container Dropdown Berjejer ke Samping -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Dropdown Pilih Jenjang -->
+            <div class="form-control w-full">
+              <label class="label pt-0">
+                <span class="label-text text-base text-base-content">Pilih Jenjang</span>
+              </label>
+              <select
+                v-model="selectedJenjang"
+                @change="handleJenjangChange"
+                class="select select-bordered w-full bg-base-100 focus:outline-none"
               >
-                <select v-model="item.tingkat" required>
-                  <option value="" disabled>Pilih Tingkat</option>
-                  <option value="Ibtidaiyah">Ibtidaiyah</option>
-                  <option value="Tsanawiyah">Tsanawiyah</option>
-                  <option value="Aliyah">Aliyah</option>
-                </select>
-
-                <input type="text" v-model="item.kelas" placeholder="Kelas (misal: 1)" required />
-
-                <button
-                  type="button"
-                  @click="removeWaliKelas(index)"
-                  v-if="formData.wali_kelas.length > 1"
-                >
-                  Hapus
-                </button>
-              </div>
-
-              <button type="button" @click="addWaliKelas">+ Tambah Wali Kelas</button>
+                <option value="" disabled selected>-- Pilih Jenjang --</option>
+                <!-- 3. Looping menggunakan listNamaJenjang -->
+                <option v-for="jenjang in listNamaJenjang" :key="jenjang" :value="jenjang">
+                  {{ jenjang }}
+                </option>
+              </select>
             </div>
 
-            <hr />
-
-            <!-- Bagian 2: Guru Fan -->
-            <div class="section">
-              <h3>Data Guru Fan</h3>
-              <div
-                v-for="(item, index) in formData.guru_fan"
-                :key="'guru-' + index"
-                class="row-group"
+            <!-- Dropdown Pilih Kelas -->
+            <div class="form-control w-full">
+              <label class="label pt-0">
+                <span class="label-text text-base text-base-content">Pilih Kelas</span>
+              </label>
+              <select
+                v-model="selectedKelas"
+                :disabled="!selectedJenjang"
+                class="select select-bordered w-full bg-base-100 focus:outline-none disabled:bg-base-100/60"
               >
-                <select v-model="item.tingkat" required>
-                  <option value="" disabled>Pilih Tingkat</option>
-                  <option value="Ibtidaiyah">Ibtidaiyah</option>
-                  <option value="Tsanawiyah">Tsanawiyah</option>
-                  <option value="Aliyah">Aliyah</option>
-                </select>
+                <option value="" disabled selected>
+                  {{ selectedJenjang ? '-- Pilih Kelas --' : 'Pilih jenjang dulu' }}
+                </option>
+                <option v-for="kelas in opsiKelas" :key="kelas" :value="kelas">
+                  {{ kelas }}
+                </option>
+              </select>
+            </div>
+          </div>
 
-                <input type="text" v-model="item.kelas" placeholder="Kelas (misal: 1)" required />
-
+          <!-- Hasil Pilihan Tampil di Bawahnya & Bisa Dihapus -->
+          <div v-if="daftarPilihan.length > 0" class="mt-5 pt-4 border-t border-base-300">
+            <p class="text-sm text-base-content/70 mb-2">Jenjang & Kelas Terpilih:</p>
+            <div class="flex flex-wrap gap-2">
+              <div
+                v-for="item in daftarPilihan"
+                :key="item.id"
+                class="badge badge-lg bg-base-100 border-base-300 gap-2 py-4 px-3 shadow-sm"
+              >
+                <span class="font-medium">{{ item.jenjang }} - {{ item.kelas }}</span>
                 <button
                   type="button"
-                  @click="removeGuruFan(index)"
-                  v-if="formData.guru_fan.length > 1"
+                  @click="hapusPilihan(item.id)"
+                  class="btn btn-ghost btn-xs btn-circle text-error hover:bg-error/10"
+                  title="Hapus"
                 >
-                  Hapus
+                  ✕
                 </button>
               </div>
-
-              <button type="button" @click="addGuruFan">+ Tambah Guru Fan</button>
             </div>
-
-            <hr />
-
-            <button type="submit" class="btn-submit">Simpan & Cek Console</button>
-          </form>
-
-          <!-- Preview langsung di layar (opsional, untuk memudahkan pengecekan) -->
-          <pre>{{ formattedOutput }}</pre>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<style scoped>
-.form-container {
-  max-width: 500px;
-  font-family: sans-serif;
-}
-.row-group {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-select,
-input {
-  padding: 6px;
-}
-.btn-submit {
-  margin-top: 10px;
-  padding: 8px 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-pre {
-  background: #f4f4f4;
-  padding: 10px;
-  margin-top: 15px;
-  border-radius: 4px;
-}
-</style>
+<style scoped></style>
