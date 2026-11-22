@@ -31,10 +31,10 @@ const handleRegister = async () => {
   }
   try {
     loading.value = true
-    const response = await delay(0) // Tambahkan delay 1 detik
-    // const response = await Auth.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
+    // const response = await delay(0) // Tambahkan delay 1 detik
+    const response = await Auth.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
 
-    // console.log('Response dari API:', response)
+    console.log('Response dari API:', response)
     // alert(response?.message || 'Registrasi berhasil! Silakan Login.')
     toast(response?.message || 'Berhasil registrasi! Silakan Login.', {
       type: 'info',
@@ -93,7 +93,10 @@ const handleRegister = async () => {
           <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">ID Guru Tugas</label>
           <input
             v-model="id_gt"
-            type="number"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            @input="id_gt = id_gt.replace(/\D/g, '')"
             required
             placeholder="Masukkan ID Guru Tugas"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
@@ -105,8 +108,10 @@ const handleRegister = async () => {
           <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Kode OTP</label>
           <input
             v-model="otp_request"
-            type="number"
-            required
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            @input="otp_request = otp_request.replace(/\D/g, '')"
             placeholder="Masukkan Kode OTP"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />
@@ -145,7 +150,7 @@ const handleRegister = async () => {
           type="submit"
           class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
         >
-          Daftar Akun
+          Register GT
         </button>
       </form>
     </div>

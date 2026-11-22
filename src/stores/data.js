@@ -56,7 +56,7 @@ export const useLaporanStore = defineStore('laporan', () => {
   return { daftarLaporan, totalLaporan, tambahLaporanBaru, getTotalLaporan }
 })
 
-// // KODE DATA FORM BARU
+// // KODE DATA FORM lama
 
 export const useDataStore = defineStore('data', () => {
   // Bentuk Object untuk menyimpan data form satuan
