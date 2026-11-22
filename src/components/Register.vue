@@ -93,7 +93,10 @@ const handleRegister = async () => {
           <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">ID Guru Tugas</label>
           <input
             v-model="id_gt"
-            type="number"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            @input="id_gt = id_gt.replace(/\D/g, '')"
             required
             placeholder="Masukkan ID Guru Tugas"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
@@ -105,8 +108,10 @@ const handleRegister = async () => {
           <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Kode OTP</label>
           <input
             v-model="otp_request"
-            type="number"
-            required
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            @input="otp_request = otp_request.replace(/\D/g, '')"
             placeholder="Masukkan Kode OTP"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
           />

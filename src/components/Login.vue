@@ -184,7 +184,10 @@ const handleLogin = async () => {
           <label class="block text-sm font-medium text-brand-darkgreen mb-1.5">Kode OTP</label>
           <input
             v-model="otp_verify"
-            type="number"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            @input="otp_verify = otp_verify.replace(/\D/g, '')"
             :required="isEmailSent"
             placeholder="masukkan kode OTP"
             class="w-full px-4 py-3 bg-base-100 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-darkgreen focus:ring-2 focus:ring-brand-darkgreen/20 transition text-sm"
@@ -206,11 +209,20 @@ const handleLogin = async () => {
 
         <!-- Tombol Submit -->
         <button
+          v-if="!isEmailSent"
+          @click="isEmailSent = true"
+          type="submit"
+          class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
+        >
+          Request OTP
+        </button>
+        <button
+          v-else
           @click="$router.push('/dashboard')"
           type="submit"
           class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
         >
-          Login
+          Verify
         </button>
       </form>
     </div>

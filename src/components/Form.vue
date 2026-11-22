@@ -93,9 +93,9 @@ const levels = ['Idadiyah', 'Ibtidaiyah', 'Tsanawiyah', 'Aliyah']
 </script>
 
 <template>
-  <section class="mx-auto min-h-screen max-w-106.5 bg-[#eef1f5] pb-15 pt-10">
+  <section class="mx-auto min-h-screen max-w-106.5 bg-base-300 pb-15 pt-10">
     <div class="px-2.5 pb-5 pt-3.25">
-      <h2 class="text-lg font-bold text-[#1e3d30] mb-4">Tambah Laporan Baru</h2>
+      <!-- <h2 class="text-lg font-bold text-accent-content mb-4">Tambah Laporan Baru</h2> -->
       <!-- Form Baru -->
 
       <form class="mt-3 space-y-2.5" @submit.prevent="handleSubmitLaporan">
