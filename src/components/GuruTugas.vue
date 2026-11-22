@@ -84,18 +84,18 @@ const handleImageUpload = (event) => {
               <!-- Detail Teks -->
               <div class="flex-1 min-w-0">
                 <div class="grid grid-cols-[80px_12px_1fr] items-baseline">
-                  <p class="text-[14px] mt-1 font-mono">Id</p>
-                  <p class="text-[14px] mt-1 font-mono">:</p>
-                  <p class="text-[14px] mt-1 font-mono">
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">Id</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">:</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">
                     {{ idGuru }}
                   </p>
                 </div>
                 <div
                   class="grid grid-cols-[80px_12px_1fr] items-baseline font-medium tracking-wide"
                 >
-                  <p class="text-[14px] mt-1 font-mono">Nama</p>
-                  <p class="text-[14px] mt-1 font-mono">:</p>
-                  <p class="text-[14px] mt-1 font-mono">
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">Nama</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">:</p>
+                  <p class="text-[14px] mt-1 text-[clamp(6px,2cqw,11px)] font-mono">
                     {{ namaGuru }}
                   </p>
                 </div>

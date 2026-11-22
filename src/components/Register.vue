@@ -31,10 +31,10 @@ const handleRegister = async () => {
   }
   try {
     loading.value = true
-    const response = await delay(0) // Tambahkan delay 1 detik
-    // const response = await Auth.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
+    // const response = await delay(0) // Tambahkan delay 1 detik
+    const response = await Auth.register(dataRegister.gt_id, dataRegister.otp, dataRegister.email)
 
-    // console.log('Response dari API:', response)
+    console.log('Response dari API:', response)
     // alert(response?.message || 'Registrasi berhasil! Silakan Login.')
     toast(response?.message || 'Berhasil registrasi! Silakan Login.', {
       type: 'info',
@@ -150,7 +150,7 @@ const handleRegister = async () => {
           type="submit"
           class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
         >
-          Daftar Akun
+          Register GT
         </button>
       </form>
     </div>

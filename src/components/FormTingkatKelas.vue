@@ -1,8 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// Data master jenjang dan kelas (Array of Objects seperti di gambar)
-const dataJenjang = [
+// 1. Hubungkan langsung array dari komponen induk menggunakan defineModel
+const daftarPilihan = defineModel({ type: Array, default: () => [] })
+
+// Data master Tingkat dan kelas (Array of Objects seperti di gambar)
+const dataTingkat = [
   {
     Idadiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
   },
@@ -17,43 +20,44 @@ const dataJenjang = [
   },
 ]
 
-const selectedJenjang = ref('')
+const selectedTingkat = ref('')
 const selectedKelas = ref('')
-const daftarPilihan = ref([])
+// const daftarPilihan = ref([])
 
-// 1. Ambil daftar nama jenjang dari setiap object di dalam array
-const listNamaJenjang = computed(() => {
-  return dataJenjang.map((item) => Object.keys(item)[0])
+// 1. Ambil daftar nama Tingkat dari setiap object di dalam array
+const listNamaTingkat = computed(() => {
+  return dataTingkat.map((item) => Object.keys(item)[0])
 })
 
-// 2. Cari object yang memiliki key sesuai jenjang yang dipilih, lalu ambil array kelasnya
+// 2. Cari object yang memiliki key sesuai Tingkat yang dipilih, lalu ambil array kelasnya
 const opsiKelas = computed(() => {
-  if (!selectedJenjang.value) return []
+  if (!selectedTingkat.value) return []
 
-  const found = dataJenjang.find((item) => Object.keys(item)[0] === selectedJenjang.value)
-  return found ? found[selectedJenjang.value] : []
+  const found = dataTingkat.find((item) => Object.keys(item)[0] === selectedTingkat.value)
+  return found ? found[selectedTingkat.value] : []
 })
 
-const handleJenjangChange = () => {
+const handleTingkatChange = () => {
   selectedKelas.value = ''
 }
 
-const tambahJenjang = () => {
-  if (!selectedJenjang.value || !selectedKelas.value) return
+const tambahTingkat = () => {
+  if (!selectedTingkat.value || !selectedKelas.value) return
 
   const sudahAda = daftarPilihan.value.some(
-    (item) => item.jenjang === selectedJenjang.value && item.kelas === selectedKelas.value,
+    (item) => item.Tingkat === selectedTingkat.value && item.kelas === selectedKelas.value,
   )
 
   if (!sudahAda) {
+    // 2. Push ke daftarPilihan (otomatis memperbarui laporan.wali_kelas / guru_fan)
     daftarPilihan.value.push({
       //   id: Date.now(),
-      jenjang: selectedJenjang.value,
+      Tingkat: selectedTingkat.value,
       kelas: selectedKelas.value,
     })
   }
 
-  selectedJenjang.value = ''
+  selectedTingkat.value = ''
   selectedKelas.value = ''
   console.log('Daftar Pilihan:', daftarPilihan.value) // Debugging: lihat daftar pilihan di console
 }
@@ -64,35 +68,23 @@ const hapusPilihan = (id) => {
 </script>
 
 <template>
-  <div class="p-6 bg-base-200 rounded-xl max-w-2xl">
-    <!-- Tombol Header -->
-    <div class="mb-4">
-      <button
-        type="button"
-        @click="tambahJenjang"
-        :disabled="!selectedJenjang || !selectedKelas"
-        class="btn btn-sm bg-[#243b2e] hover:bg-[#1a2b22] text-white border-none rounded-none px-4 normal-case font-normal disabled:opacity-50"
-      >
-        tambahkan jenjang
-      </button>
-    </div>
-
+  <div class="bg-base-200 rounded-xl max-w-2xl">
     <!-- Container Dropdown Berjejer ke Samping -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Dropdown Pilih Jenjang -->
+      <!-- Dropdown Pilih Tingkat -->
       <div class="form-control w-full">
         <label class="label pt-0">
-          <span class="label-text text-base text-base-content">Pilih Jenjang</span>
+          <span class="field-label label-text text-base text-base-content">Pilih Tingkat</span>
         </label>
         <select
-          v-model="selectedJenjang"
-          @change="handleJenjangChange"
-          class="select select-bordered w-full bg-base-100 focus:outline-none"
+          v-model="selectedTingkat"
+          @change="handleTingkatChange"
+          class="select select-bordered field w-full bg-base-100 focus:outline-none"
         >
-          <option value="" disabled selected>-- Pilih Jenjang --</option>
-          <!-- 3. Looping menggunakan listNamaJenjang -->
-          <option v-for="jenjang in listNamaJenjang" :key="jenjang" :value="jenjang">
-            {{ jenjang }}
+          <option value="" disabled selected>-- Pilih Tingkat --</option>
+          <!-- 3. Looping menggunakan listNamaTingkat -->
+          <option v-for="Tingkat in listNamaTingkat" :key="Tingkat" :value="Tingkat">
+            {{ Tingkat }}
           </option>
         </select>
       </div>
@@ -100,33 +92,44 @@ const hapusPilihan = (id) => {
       <!-- Dropdown Pilih Kelas -->
       <div class="form-control w-full">
         <label class="label pt-0">
-          <span class="label-text text-base text-base-content">Pilih Kelas</span>
+          <span class="field-label label-text text-base text-base-content">Pilih Kelas</span>
         </label>
         <select
           v-model="selectedKelas"
-          :disabled="!selectedJenjang"
-          class="select select-bordered w-full bg-base-100 focus:outline-none disabled:bg-base-100/60"
+          :disabled="!selectedTingkat"
+          class="select select-bordered field w-full bg-base-100 focus:outline-none disabled:bg-base-100/60"
         >
           <option value="" disabled selected>
-            {{ selectedJenjang ? '-- Pilih Kelas --' : 'Pilih jenjang dulu' }}
+            {{ selectedTingkat ? '-- Pilih Kelas --' : 'Pilih tingkat dulu' }}
           </option>
           <option v-for="kelas in opsiKelas" :key="kelas" :value="kelas">
             {{ kelas }}
           </option>
         </select>
       </div>
+      <!-- Tombol Header -->
+      <div class="mb-4">
+        <button
+          type="button"
+          @click="tambahTingkat"
+          :disabled="!selectedTingkat || !selectedKelas"
+          class="btn btn-sm field bg-primary hover:bg-[#1a2b22] text-white border-none rounded-none px-4 normal-case font-normal disabled:opacity-50"
+        >
+          Tambah Tingkat Kelas
+        </button>
+      </div>
     </div>
 
     <!-- Hasil Pilihan Tampil di Bawahnya & Bisa Dihapus -->
     <div v-if="daftarPilihan.length > 0" class="mt-5 pt-4 border-t border-base-300">
-      <p class="text-sm text-base-content/70 mb-2">Jenjang & Kelas Terpilih:</p>
+      <p class="field-label text-sm text-base-content/70 mb-2">Tingkat & Kelas Terpilih:</p>
       <div class="flex flex-wrap gap-2">
         <div
           v-for="item in daftarPilihan"
           :key="item.id"
-          class="badge badge-lg bg-base-100 border-base-300 gap-2 py-4 px-3 shadow-sm"
+          class="badge field badge-lg bg-base-100 border-base-300 gap-2 py-4 px-3 shadow-sm"
         >
-          <span class="font-medium">{{ item.jenjang }} - {{ item.kelas }}</span>
+          <span class="font-medium">{{ item.Tingkat }} - {{ item.kelas }}</span>
           <button
             type="button"
             @click="hapusPilihan(item.id)"

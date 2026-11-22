@@ -76,18 +76,18 @@ onUnmounted(() => {
           </p>
         </RouterLink>
       </div>
-      <div
+      <!-- <div
         class="absolute z-20 inline-block text-left w-56 bottom-70 left-1/2 transform -translate-x-1/2"
-      >
-        <div ref="dropdownRef" class="dropdown-container">
-          <!-- Tombol Dropdown -->
-          <button
+      > -->
+      <!-- <div ref="dropdownRef" class="dropdown-container"> -->
+      <!-- Tombol Dropdown -->
+      <!-- <button
             @click="isOpen = !isOpen"
             class="inline-flex justify-between items-center w-full px-4 py-2 text-sm font-medium text-base-content bg-base-100 border border-gray-300 rounded-[15px] shadow-sm hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
-            {{ selectedOption || 'Tahun Ajaran' }}
-            <!-- Icon Panah (Chevron) -->
-            <svg
+            {{ selectedOption || 'Tahun Ajaran' }} -->
+      <!-- Icon Panah (Chevron) -->
+      <!-- <svg
               class="w-5 h-5 ml-2 -mr-1"
               xmlns="http://w3.org"
               viewBox="0 0 20 20"
@@ -98,11 +98,11 @@ onUnmounted(() => {
                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                 clip-rule="evenodd"
               />
-            </svg>
-          </button>
+            </svg> -->
+      <!-- </button> -->
 
-          <!-- Menu Dropdown (Muncul jika isOpen = true) -->
-          <div
+      <!-- Menu Dropdown (Muncul jika isOpen = true) -->
+      <!-- <div
             v-if="isOpen"
             class="absolute right-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           >
@@ -116,9 +116,9 @@ onUnmounted(() => {
                 {{ option }}
               </button>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> -->
+      <!-- </div> -->
+      <!-- </div> -->
 
       <div
         class="dashboard-menu absolute inset-x-0 bottom-10 z-10 rounded-t-[40px] bg-primary-content px-5 pt-14"

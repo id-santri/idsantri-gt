@@ -210,7 +210,6 @@ const handleLogin = async () => {
         <!-- Tombol Submit -->
         <button
           v-if="!isEmailSent"
-          @click="isEmailSent = true"
           type="submit"
           class="w-full mt-4 py-3.5 bg-primary text-accent-content font-semibold rounded-xl shadow-md hover:bg-opacity-95 active:scale-[0.99] transition-all text-center"
         >
