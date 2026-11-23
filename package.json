@@ -10,6 +10,7 @@
     "format": "prettier --write --experimental-cli src/",
     "deploy": "gh-pages -d dist",
     "setup": "node scripts/setup-brand.js",
+    "setup:local": "node scripts/setup-brand.js local",
     "setup:demo": "node scripts/setup-brand.js demo",
     "setup:syaichona": "node scripts/setup-brand.js syaichona"
   },
@@ -31,14 +32,15 @@
     "vue3-toastify": "^0.2.9"
   },
   "devDependencies": {
+    "@vitejs/devtools": "^0.8.3",
     "@vitejs/plugin-vue": "^6.0.8",
     "daisyui": "^5.7.50",
     "gh-pages": "^6.3.0",
     "postcss-import": "^17.0.1",
     "prettier": "3.9.6",
     "vite": "^8.2.2",
-    "vite-plugin-html": "^3.2.2",
     "vite-plugin-inspect": "^12.1.0",
+    "vite-plugin-pwa": "^2.0.0",
     "vite-plugin-vue-devtools": "^8.2.1"
   },
   "engines": {
