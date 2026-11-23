@@ -87,7 +87,7 @@ onUnmounted(() => {
 
         <RouterLink
           to="/rekap"
-          class="mx-auto flex w-56 flex-col items-start justify-center rounded-[18px] bg-ugt-yellow dashboard-gradient-card px-4 py-2.5 text-left shadow-sm transition hover:brightness-105"
+          class="mx-auto flex w-56 flex-col items-start justify-center rounded-[18px]  dashboard-gradient-card px-4 py-2.5 text-left shadow-sm transition hover:brightness-105"
         >
           <span class="text-[42px] font-black leading-none text-[#234737]">
             {{ store.totalLaporan }}
