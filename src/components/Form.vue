@@ -30,32 +30,42 @@ console.log(detailData.value)
 
 const laporan = reactive({
   config_id: bulanHijri.value || '1447-1448-11', // <-- 1. Hapus tanda // (atau isi dinamis dari API config)
-  wali_kelas: [],
-  guru_fan: [],
-  sex_murid: '',
-  absen: [
+  wali_kelas: [
     {
-      sakit: 0,
+      tingkat: 'Ibtidaiyah',
+      kelas: '6',
+      sex_murid: 'Laki-Laki',
     },
   ],
-  kegiatan: [
+  guru_fan: [
     {
-      quran: '',
-      kitab: '',
+      tingkat: 'Idadiyah',
+      kelas: '5',
+      sex_murid: 'Perempuan',
     },
   ],
-  hubungan: [
-    {
-      guru: '',
-      pjgt: '',
-    },
-  ],
-  bisyaroh: [
-    {
-      nominal: 0,
-      tepat_waktu: '',
-    },
-  ],
+
+  absen: {
+    sakit: 1,
+    izin: 3,
+  },
+
+  kegiatan: {
+    quran: 'ya',
+    kitab: 'tidak',
+  },
+
+  hubungan: {
+    pjgt: 'baik',
+    guru: 'baik',
+  },
+
+  bisyarah: {
+    nominal: 10000,
+    tepat_waktu: true,
+    tgl_terima: '2026-12-22',
+  },
+
   usul_saran: 'Kondisi kegiatan belajar mengajar berjalan kondusif.',
 })
 
@@ -139,30 +149,29 @@ const handleSubmitLaporan = async () => {
           <FormTingkatKelas v-model="laporan.wali_kelas" />
         </div>
         <div class="card p-2.5 bg-base-200">
-          <h2 class="section-title text-primary">Menjadi Guru Fun</h2>
+          <h2 class="section-title text-primary">Menjadi Guru Fan</h2>
           <FormTingkatKelas v-model="laporan.guru_fan" />
         </div>
-        <div class="card p-2.5 bg-base-200">
-          <h2 class="section-title text-primary">Data Murid</h2>
-          <label class="block"
-            ><span class="field-label my-2">Jenis Kelamin Murid</span
-            ><select
-              v-model="laporan.sex_murid"
-              class="select select-sm field-select bg-base-100 w-20"
-            >
-              <option>Laki-laki</option>
-              <option>Perempuan</option>
-              <option>Laki-Laki & Perempuan</option>
-            </select></label
-          >
-        </div>
+
         <!-- 3. Absen (Akses indeks ke-0: laporan.absen[0]) -->
         <div class="card p-2.5 bg-base-200">
           <h2 class="section-title text-primary">Absensi</h2>
           <label
             ><span class="field-label">Sakit</span
             ><select
-              v-model.number="laporan.absen[0].sakit"
+              v-model.number="laporan.absen.sakit"
+              class="select select-sm field-select bg-base-100 w-15.75"
+            >
+              <option :value="0">Tidak</option>
+              <option :value="1">1 Hari</option>
+              <option :value="2">2 Hari</option>
+              <option :value="3">3 Hari</option>
+            </select></label
+          >
+          <label
+            ><span class="field-label">Izin</span
+            ><select
+              v-model.number="laporan.absen.izin"
               class="select select-sm field-select bg-base-100 w-15.75"
             >
               <option :value="0">Tidak</option>
@@ -179,20 +188,20 @@ const handleSubmitLaporan = async () => {
             <label
               ><span class="field-label my-4">Mengajar Al-Quran</span
               ><select
-                v-model="laporan.kegiatan[0].quran"
+                v-model="laporan.kegiatan.quran"
                 class="select select-sm field-select bg-base-100 w-20"
               >
-                <option>Iya</option>
+                <option>Ya</option>
                 <option>Tidak</option>
               </select></label
             >
             <label
               ><span class="field-label my-4">Mengajar Kitab</span
               ><select
-                v-model="laporan.kegiatan[0].kitab"
+                v-model="laporan.kegiatan.kitab"
                 class="select select-sm field-select bg-base-100 w-20"
               >
-                <option>Iya</option>
+                <option>Ya</option>
                 <option>Tidak</option>
               </select></label
             >
@@ -204,7 +213,7 @@ const handleSubmitLaporan = async () => {
             <span class="field-label">Dengan PJGT</span>
             <div class="flex gap-0.5 text-[17px] leading-none">
               <select
-                v-model="laporan.hubungan[0].pjgt"
+                v-model="laporan.hubungan.pjgt"
                 class="select select-sm field-select bg-base-100 w-20"
               >
                 <option>Baik</option>
@@ -215,7 +224,7 @@ const handleSubmitLaporan = async () => {
             <span class="field-label">Dengan Guru Lain</span>
             <div class="flex gap-0.5 text-[17px] leading-none">
               <select
-                v-model="laporan.hubungan[0].guru"
+                v-model="laporan.hubungan.guru"
                 class="select select-sm field-select bg-base-100 w-20"
               >
                 <option>Baik</option>
@@ -231,13 +240,13 @@ const handleSubmitLaporan = async () => {
           <label class="mb-2.5 block"
             ><span class="field-label">Nominal</span
             ><input
-              v-model.number="laporan.bisyaroh[0].nominal"
+              v-model.number="laporan.bisyarah.nominal"
               type="text"
               inputmode="numeric"
               pattern="[0-9]*"
               @input="
-                laporan.bisyaroh[0].nominal = Number(
-                  String(laporan.bisyaroh[0].nominal).replace(/\D/g, ''),
+                laporan.bisyarah.nominal = Number(
+                  String(laporan.bisyarah.nominal).replace(/\D/g, ''),
                 )
               "
               class="field bg-base-100"
@@ -245,13 +254,21 @@ const handleSubmitLaporan = async () => {
           <label class="block"
             ><span class="field-label">Tepat Waktu</span
             ><select
-              v-model="laporan.bisyaroh[0].tepat_waktu"
+              v-model="laporan.bisyarah.tepat_waktu"
               class="select select-sm field-select bg-base-100 w-20"
             >
-              <option>Tepat waktu</option>
-              <option>Terlambat</option>
+              <option :value="true">Ya</option>
+              <option :value="false">Tidak</option>
             </select></label
           >
+          <label class="block"
+            ><span class="field-label">Tanggal Terima</span
+            ><input
+              v-model="laporan.bisyarah.tgl_terima"
+              type="text"
+              class="select select-sm field-select bg-base-100 w-20"
+            />
+          </label>
         </div>
         <div class="card p-2.5 bg-base-200">
           <div class="mb-3.25">

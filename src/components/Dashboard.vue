@@ -87,7 +87,7 @@ onUnmounted(() => {
 
         <RouterLink
           to="/rekap"
-          class="mx-auto flex w-56 flex-col items-start justify-center rounded-[18px]  dashboard-gradient-card px-4 py-2.5 text-left shadow-sm transition hover:brightness-105"
+          class="mx-auto flex w-56 flex-col items-start justify-center rounded-[18px] dashboard-gradient-card px-4 py-2.5 text-left shadow-sm transition hover:brightness-105"
         >
           <span class="text-[42px] font-black leading-none text-[#234737]">
             {{ store.totalLaporan }}
@@ -114,7 +114,7 @@ onUnmounted(() => {
               />
             </span>
             <span class="whitespace-nowrap text-[11px] font-medium text-base-content"
-              >Form Laporan GT</span
+              >Form Laporan</span
             >
           </RouterLink>
 
@@ -125,7 +125,7 @@ onUnmounted(() => {
               <font-awesome-icon icon="chart-line" class="text-lg sm:text-xl text-accent-content" />
             </span>
             <span class="whitespace-nowrap text-[11px] font-medium text-base-content"
-              >Laporan GT</span
+              >Detail Laporan</span
             >
           </RouterLink>
 
@@ -136,7 +136,7 @@ onUnmounted(() => {
               <font-awesome-icon icon="briefcase" class="text-lg sm:text-xl text-accent-content" />
             </span>
             <span class="whitespace-nowrap text-[11px] font-medium text-base-content"
-              >Surat Tugas GT</span
+              >Surat Tugas</span
             >
           </RouterLink>
         </div>

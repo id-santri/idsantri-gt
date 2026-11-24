@@ -15,6 +15,9 @@ import {
   faChalkboardTeacher,
   faUserShield,
   faSignOutAlt,
+  faHouse,
+  faQrcode,
+  faBarcode,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -26,6 +29,9 @@ library.add(
   faChalkboardTeacher,
   faUserShield,
   faSignOutAlt,
+  faHouse,
+  faQrcode,
+  faBarcode,
 )
 
 const app = createApp(App)
