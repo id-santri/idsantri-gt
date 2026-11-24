@@ -191,7 +191,7 @@ const handleSubmitLaporan = async () => {
                 v-model="laporan.kegiatan.quran"
                 class="select select-sm field-select bg-base-100 w-20"
               >
-                <option>Iya</option>
+                <option>Ya</option>
                 <option>Tidak</option>
               </select></label
             >
@@ -201,7 +201,7 @@ const handleSubmitLaporan = async () => {
                 v-model="laporan.kegiatan.kitab"
                 class="select select-sm field-select bg-base-100 w-20"
               >
-                <option>Iya</option>
+                <option>Ya</option>
                 <option>Tidak</option>
               </select></label
             >
@@ -257,7 +257,7 @@ const handleSubmitLaporan = async () => {
               v-model="laporan.bisyarah.tepat_waktu"
               class="select select-sm field-select bg-base-100 w-20"
             >
-              <option :value="true">Iya</option>
+              <option :value="true">Ya</option>
               <option :value="false">Tidak</option>
             </select></label
           >

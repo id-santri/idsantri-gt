@@ -11,7 +11,7 @@
         to="/dashboard"
         class="flex flex-col items-center justify-center gap-1 text-[9px] no-underline"
       >
-        <font-awesome-icon icon="fa-solid fa-gauge" class="text-2xl text-primary" />
+        <font-awesome-icon icon="fa-solid fa-house" class="text-2xl text-primary" />
         <span class="text-primary font-bold text-[13px]">Beranda</span>
       </RouterLink>
 
@@ -20,8 +20,8 @@
         to="/gt"
         class="flex flex-col items-center justify-center gap-1 text-[9px] no-underline"
       >
-        <font-awesome-icon icon="fa-solid fa-chalkboard-user" class="text-2xl text-primary" />
-        <span class="text-primary font-bold text-[13px]">Guru Tugas</span>
+        <font-awesome-icon icon="fa-solid fa-qrcode" class="text-2xl text-primary" />
+        <span class="text-primary font-bold text-[13px]">Barcode</span>
       </RouterLink>
 
       <!-- Tombol 3: PJGT (Jalur '/pjgt') -->
