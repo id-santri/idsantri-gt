@@ -7,21 +7,22 @@ const daftarPilihan = defineModel({ type: Array, default: () => [] })
 // Data master Tingkat dan kelas (Array of Objects seperti di gambar)
 const dataTingkat = [
   {
-    Idadiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
+    Idadiyah: ['1', '2', '3', '4', ' 5', ' 6'],
   },
   {
-    Ibtidaiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
+    Ibtidaiyah: [' 1', ' 2', ' 3', ' 4', ' 5', ' 6'],
   },
   {
-    Tsanawiyah: ['Kelas 1', 'Kelas 2', 'Kelas 3', 'Kelas 4', 'Kelas 5', 'Kelas 6'],
+    Tsanawiyah: [' 1', ' 2', ' 3'],
   },
   {
-    Aliyah: ['Kelas 1', 'Kelas 2', 'Kelas 3'],
+    Aliyah: [' 1', ' 2', ' 3'],
   },
 ]
 
 const selectedTingkat = ref('')
 const selectedKelas = ref('')
+const selectedSexMurid = ref('')
 // const daftarPilihan = ref([])
 
 // 1. Ambil daftar nama Tingkat dari setiap object di dalam array
@@ -39,26 +40,32 @@ const opsiKelas = computed(() => {
 
 const handleTingkatChange = () => {
   selectedKelas.value = ''
+  selectedSexMurid.value = ''
 }
 
 const tambahTingkat = () => {
-  if (!selectedTingkat.value || !selectedKelas.value) return
+  if (!selectedTingkat.value || !selectedKelas.value || !selectedSexMurid.value) return
 
   const sudahAda = daftarPilihan.value.some(
-    (item) => item.Tingkat === selectedTingkat.value && item.kelas === selectedKelas.value,
+    (item) =>
+      item.tingkat === selectedTingkat.value &&
+      item.kelas === selectedKelas.value &&
+      item.sex_murid === selectedSexMurid.value,
   )
 
   if (!sudahAda) {
     // 2. Push ke daftarPilihan (otomatis memperbarui laporan.wali_kelas / guru_fan)
     daftarPilihan.value.push({
-      //   id: Date.now(),
-      Tingkat: selectedTingkat.value,
+      id: Date.now(),
+      tingkat: selectedTingkat.value,
       kelas: selectedKelas.value,
+      sex_murid: selectedSexMurid.value,
     })
   }
 
   selectedTingkat.value = ''
   selectedKelas.value = ''
+  selectedSexMurid.value = ''
   console.log('Daftar Pilihan:', daftarPilihan.value) // Debugging: lihat daftar pilihan di console
 }
 
@@ -107,6 +114,24 @@ const hapusPilihan = (id) => {
           </option>
         </select>
       </div>
+      <!-- Dropdown Pilih Sex Murid -->
+      <!-- Dropdown Pilih Sex Murid -->
+      <div class="form-control w-full">
+        <label class="label pt-0">
+          <span class="field-label label-text text-base text-base-content"
+            >Pilih Jenis Kelamin Murid</span
+          >
+        </label>
+        <select
+          v-model="selectedSexMurid"
+          :disabled="!selectedKelas"
+          class="select select-bordered field w-full bg-base-100 focus:outline-none"
+        >
+          <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+          <option value="Laki-Laki">Laki-Laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+      </div>
       <!-- Tombol Header -->
       <div class="mb-4">
         <button
@@ -129,7 +154,9 @@ const hapusPilihan = (id) => {
           :key="item.id"
           class="badge field badge-lg bg-base-100 border-base-300 gap-2 py-4 px-3 shadow-sm"
         >
-          <span class="font-medium">{{ item.Tingkat }} - {{ item.kelas }}</span>
+          <span class="font-medium"
+            >{{ item.tingkat }} - {{ item.kelas }} - {{ item.sex_murid }}</span
+          >
           <button
             type="button"
             @click="hapusPilihan(item.id)"
