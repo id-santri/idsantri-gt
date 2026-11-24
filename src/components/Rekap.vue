@@ -11,11 +11,10 @@ const store = useLaporanStore()
         class="card p-2.5 min-h-screen pt-10 pb-20 mt-3 mb-6 relative bg-base-100 rounded-3xl w-full max-w-lg shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 flex flex-col items-center sm:items-start gap-6 font-san"
       >
         <!-- HEADER -->
-        <div class="flex justify-between items-center mb-6 w-full">
+        <div class="flex justify-between items-center mb-6 w-full ">
+          
           <div class="flex items-baseline">
-            <h1 class="text-[clamp(16px,4cqw,24px)] font-bold text-base-content">
-              Rekap Laporan GT
-            </h1>
+            <h1 class="text-[clamp(16px,4cqw,24px)] font-bold text-base-content">Rekap Laporan</h1>
             <!-- Menampilkan panjang list array dari Store -->
           </div>
 
@@ -29,7 +28,7 @@ const store = useLaporanStore()
         </div>
 
         <!-- LIST KARTU LAPORAN -->
-        <div class="space-y-3">
+        <div class="space-y-3 w-full">
           <div
             v-for="laporan in store.daftarLaporan"
             :key="laporan.id"
@@ -46,10 +45,10 @@ const store = useLaporanStore()
             <div class="flex-1 p-3 flex justify-between items-center bg-base-100 min-w-0">
               <div class="truncate pr-4">
                 <h3 class="font-bold text-base-content text-[clamp(12px,2.5cqw,16px)] truncate">
-                  {{ laporan.judul }}
+                  Laporan Bulan: {{ laporan.config_id }}
                 </h3>
                 <p class="text-[clamp(10px,2cqw,12px)] text-gray-500 font-medium mt-0.5 truncate">
-                  {{ laporan.penulis }}
+                  {{ laporan.created_at }}
                 </p>
               </div>
 

@@ -125,6 +125,14 @@ export const dataGuruTugas = defineStore('guru', () => {
       bulan: 'Safar',
       no: 2,
     },
+    {
+      bulan: 'Rabiul Awal',
+      no: 15,
+    },
+    {
+      bulan: 'Jumadal Akhirah',
+      no: 6,
+    },
   ]
   // Tambahkan optional chaining (?.) agar tidak error saat detailData masih kosong
   const waliKelas = computed(() => detailData.value?.wali_kelas || [])
