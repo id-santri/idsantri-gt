@@ -29,7 +29,7 @@ console.log(bulanHijri.value)
 console.log(detailData.value)
 
 const laporan = reactive({
-  config_id: bulanHijri.value || '1447-1448-02', // <-- 1. Hapus tanda // (atau isi dinamis dari API config)
+  config_id: bulanHijri.value || '1447-1448-11', // <-- 1. Hapus tanda // (atau isi dinamis dari API config)
   wali_kelas: [],
   guru_fan: [],
   sex_murid: '',

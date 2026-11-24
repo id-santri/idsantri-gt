@@ -151,7 +151,7 @@ const handleLogin = async () => {
       <p
         class="mx-auto max-w-85 text-[20px] font-bold uppercase leading-[1.22] tracking-[.2px] text-primary"
       >
-        Laporan Guru Tugas
+        Guru Tugas
       </p>
       <p class="mx-auto max-w-85 text-[16px] leading-[1.22] tracking-[.2px] text-base-content">
         Pondok Pesantren
