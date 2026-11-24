@@ -114,6 +114,10 @@ export const dataGuruTugas = defineStore('guru', () => {
 
   const bulanHijri = [
     {
+      bulan: 'Dzul Qadah',
+      no: 11,
+    },
+    {
       bulan: 'Muharram',
       no: 1,
     },

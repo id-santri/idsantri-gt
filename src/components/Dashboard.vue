@@ -2,6 +2,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 import { useLaporanStore } from '../stores/data'
+import CardGT from './CardGT.vue'
+
 const store = useLaporanStore()
 
 // State untuk membuka/tutup dropdown
@@ -43,13 +45,35 @@ onUnmounted(() => {
 <template>
   <main class="flex items-center justify-center bg-base-100 text-ugt-ink">
     <section
-      class="dashboard-shell relative mx-auto min-h-screen max-w-109.5 overflow-hidden w-full"
+      class="bg-gradient-to-b from-green-900 to-green-500 relative mx-auto min-h-dvh max-w-109.5 w-full flex flex-col justify-between overflow-x-hidden"
     >
-      <div class="dashboard-gradient absolute inset-x-0 top-0 h-[77%]"></div>
+      <!-- 🎨 Dekorasi Motif Lingkaran Latar Belakang -->
+      <div class="pointer-events-none absolute inset-0 overflow-hidden z-0">
+        <!-- Lingkaran Kuning Kiri Atas -->
+        <!-- Lingkaran Kuning Kiri Atas -->
+        <div
+          class="absolute -top-24 -left-20 h-68 w-68 rounded-full border-[26px] opacity-50 border-[#c8d831]/85"
+        ></div>
+
+        <!-- Lingkaran Besar Hijau Muda Tengah -->
+        <div
+          class="absolute bottom-90 right-1/2 -translate-x-1/4 h-42 w-42 rounded-full bg-[#389b48]/45"
+        ></div>
+
+        <!-- Lingkaran Kuning Kanan Atas -->
+        <div
+          class="absolute -top-1 -right-24 h-34 w-34 rounded-full border-[24px] border-[#c8d831]/85"
+        ></div>
+
+        <!-- Lengkungan Hijau Gelap Bawah Kanan -->
+        <div class="absolute top-36 -right-14 h-44 w-44 rounded-full bg-green-950/30"></div>
+      </div>
+      <!-- <div class="dashboard-gradient absolute inset-x-0 top-0 h-[77%]"></div> -->
+
       <div
-        class="relative z-10 px-5 pt-13.5 text-center flex flex-col items-center justify-center gap-0.75 min-h-screen bottom-40"
+        class="relative z-10 flex-1 px-5 pt-22 pb-6 text-center flex flex-col items-center justify-center"
       >
-        <p
+        <!-- <p
           class="mx-auto max-w-85 text-[20px] font-bold uppercase leading-[1.22] tracking-[.2px] text-white"
         >
           Laporan Guru Tugas
@@ -59,97 +83,61 @@ onUnmounted(() => {
         </p>
         <p class="mx-auto max-w-85 text-[16px] leading-[1.22] tracking-[.2px] text-white">
           Syachona Moh. Cholil Bangkalan
-        </p>
+        </p> -->
 
         <RouterLink
           to="/rekap"
-          class="mx-auto mt-10 flex h-32.5 w-56 flex-col items-start justify-center rounded-[18px] bg-ugt-yellow dashboard-gradient-card px-3.25 text-left shadow-sm transition hover:brightness-105"
+          class="mx-auto flex w-56 flex-col items-start justify-center rounded-[18px]  dashboard-gradient-card px-4 py-2.5 text-left shadow-sm transition hover:brightness-105"
         >
-          <span class="text-[60px] font-black leading-none text-[#234737]">{{
-            store.totalLaporan
-          }}</span>
-          <p class="mt-2 whitespace-nowrap uppercase font-extrabold text-[17px] text-[#1c382d]">
+          <span class="text-[42px] font-black leading-none text-[#234737]">
+            {{ store.totalLaporan }}
+          </span>
+          <p class="mt-1 whitespace-nowrap uppercase font-extrabold text-[14px] text-[#1c382d]">
             Rekap
           </p>
-          <p class="mt-2 whitespace-nowrap leading-[0.22] font-bold text-[12px] text-[#1c382d]">
+          <p class="mt-0.5 whitespace-nowrap leading-tight font-bold text-[11px] text-[#1c382d]">
             Laporan Bulanan Guru Tugas
           </p>
         </RouterLink>
       </div>
-      <!-- <div
-        class="absolute z-20 inline-block text-left w-56 bottom-70 left-1/2 transform -translate-x-1/2"
-      > -->
-      <!-- <div ref="dropdownRef" class="dropdown-container"> -->
-      <!-- Tombol Dropdown -->
-      <!-- <button
-            @click="isOpen = !isOpen"
-            class="inline-flex justify-between items-center w-full px-4 py-2 text-sm font-medium text-base-content bg-base-100 border border-gray-300 rounded-[15px] shadow-sm hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-          >
-            {{ selectedOption || 'Tahun Ajaran' }} -->
-      <!-- Icon Panah (Chevron) -->
-      <!-- <svg
-              class="w-5 h-5 ml-2 -mr-1"
-              xmlns="http://w3.org"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg> -->
-      <!-- </button> -->
 
-      <!-- Menu Dropdown (Muncul jika isOpen = true) -->
-      <!-- <div
-            v-if="isOpen"
-            class="absolute right-0 z-10 w-full mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-          >
-            <div class="py-1">
-              <button
-                v-for="option in options"
-                :key="option"
-                @click="selectOption(option)"
-                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-800 hover:text-white transition-colors duration-150"
-              >
-                {{ option }}
-              </button>
-            </div>
-          </div> -->
-      <!-- </div> -->
-      <!-- </div> -->
-
-      <div
-        class="dashboard-menu absolute inset-x-0 bottom-10 z-10 rounded-t-[40px] bg-primary-content px-5 pt-14"
-      >
-        <div class="grid grid-cols-3 gap-1">
+      <div class="relative z-10 rounded-t-[36px] bg-primary-content px-5 pt-6 pb-22">
+        <CardGT />
+        <div class="grid grid-cols-3 gap-2 pt-5">
           <RouterLink to="/form" class="flex flex-col items-center text-center">
             <span
-              class="mb-5 h-17.5 w-17.5 rounded-full bg-primary flex justify-center items-center text-center"
+              class="mb-1.5 h-13 w-13 sm:h-15 sm:w-15 rounded-full bg-primary flex justify-center items-center"
             >
-              <font-awesome-icon icon="clipboard-list" class="text-xl text-accent-content" />
+              <font-awesome-icon
+                icon="clipboard-list"
+                class="text-lg sm:text-xl text-accent-content"
+              />
             </span>
-
-            <span class="whitespace-nowrap text-[11px] text-base-content">Form Laporan GT</span>
+            <span class="whitespace-nowrap text-[11px] font-medium text-base-content"
+              >Form Laporan GT</span
+            >
           </RouterLink>
+
           <RouterLink to="/laporan" class="flex flex-col items-center text-center">
             <span
-              class="mb-5 h-17.5 w-17.5 rounded-full bg-primary flex justify-center items-center text-center"
+              class="mb-1.5 h-13 w-13 sm:h-15 sm:w-15 rounded-full bg-primary flex justify-center items-center"
             >
-              <font-awesome-icon icon="chart-line" class="text-xl text-accent-content" />
+              <font-awesome-icon icon="chart-line" class="text-lg sm:text-xl text-accent-content" />
             </span>
-
-            <span class="whitespace-nowrap text-[11px] text-base-content">Laporan GT</span>
+            <span class="whitespace-nowrap text-[11px] font-medium text-base-content"
+              >Laporan GT</span
+            >
           </RouterLink>
+
           <RouterLink to="/surat" class="flex flex-col items-center text-center">
             <span
-              class="mb-5 h-17.5 w-17.5 rounded-full bg-primary flex justify-center items-center text-center"
+              class="mb-1.5 h-13 w-13 sm:h-15 sm:w-15 rounded-full bg-primary flex justify-center items-center"
             >
-              <font-awesome-icon icon="briefcase" class="text-xl text-accent-content" />
+              <font-awesome-icon icon="briefcase" class="text-lg sm:text-xl text-accent-content" />
             </span>
-
-            <span class="whitespace-nowrap text-[11px] text-base-content">Surat Tugas GT</span>
+            <span class="whitespace-nowrap text-[11px] font-medium text-base-content"
+              >Surat Tugas GT</span
+            >
           </RouterLink>
         </div>
       </div>

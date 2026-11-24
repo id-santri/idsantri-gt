@@ -13,7 +13,7 @@
   --color-primary-content: #fff;
 
   --color-secondary: #ec4899;
-  --color-accent-content: #d1ae26;
+  --color-accent-content: #a2c80a;
   --color-neutral: #1f2937;
   --color-base-100: #ffffff; /* Background utama */
   --color-base-200: #f3f4f6;
@@ -27,7 +27,7 @@
   --color-primary-content: #214638;
 
   --color-secondary: #f472b6;
-  --color-accent-content: #e7c94d;
+  --color-accent-content: #c8d831;
   --color-neutral: #2a323c;
   --color-base-100: #1d232a; /* Background gelap */
   --color-base-200: #191e24;
@@ -140,7 +140,7 @@ select {
   background: linear-gradient(180deg, #1d4032 0%, #284b2d 36%, #4b7626 100%);
 }
 .dashboard-gradient-card {
-  background: linear-gradient(200deg, #f4d652 26%, #f0cc3b 70%);
+  background: linear-gradient(200deg, #c8d831 26%, #e1f436 70%);
 }
 .dashboard-menu {
   height: 230px;

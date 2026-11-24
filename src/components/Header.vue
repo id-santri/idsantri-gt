@@ -55,7 +55,7 @@ const triggerLogout = () => {
         <div class="leading-[1.05] gap-1 flex flex-col text-left">
           <div class="text-[12px] font-extrabold tracking-wide text-base-100">Aplikasi</div>
           <div class="mt-0.75 text-[7px] uppercase tracking-[1px] text-accent-content">
-            Laporan Guru Tugas
+            Guru Tugas
           </div>
         </div>
       </div>
